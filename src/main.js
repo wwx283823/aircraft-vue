@@ -10,7 +10,15 @@ import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import axios from 'axios'
 // Vue.prototype.$http=axios
+// 导入 css
+import 'vue-easytable/libs/themes-base/index.css'
 
+// 导入组件
+import {VTable,VPagination} from 'vue-easytable'
+
+// 注册到全局
+Vue.component(VTable.name, VTable)
+// Vue.component(VPagination.name, VPagination)
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false

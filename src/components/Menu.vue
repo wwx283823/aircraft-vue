@@ -15,7 +15,7 @@
         <router-link class="routerClass" to="/view3">专项分析 |</router-link>
         <router-link class="routerClass" to="/view3">通用警务 |</router-link>
         <router-link class="routerClass" to="/view3">功能管理统计 |</router-link>
-        <router-link class="routerClass" to="/view3">系统管理 |</router-link>
+        <router-link class="routerClass" to="/view3">系统管理</router-link>
         <router-view/>
       </div>
     </div>
@@ -44,7 +44,7 @@
 　　</div>
 </template>
 <style scoped>
-  @import '../../static/css/menu.css';
+  @import '../../static/css/app.css';
 </style>
 <script type="text/javascript">
   export default {
