@@ -1,0 +1,22 @@
+.routerClass{
+  color: white;
+  font-size: 16px;
+}
+.bodyHtmlLabel{
+  color: white;
+  font-size: 18px;
+}
+.bodyHtmlInput{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px 4px;
+}
+.bodyHtmlLabelR{
+  writing-mode: tb;
+  font-size: 25px;
+  color: white;
+  float: right;
+}
+.topR{
+  margin-top: 35px;
+}

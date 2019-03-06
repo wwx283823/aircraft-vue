@@ -1,0 +1,85 @@
+<template>
+　　<div id="menuId">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 timeClass">
+          {{nowTime}}
+        </div>
+      </div>
+      <div class="row">
+        <router-link class="routerClass" to="/view3">集中分析 |</router-link>
+        <router-link class="routerClass" to="/view3">集中参数 |</router-link>
+        <router-link class="routerClass" to="/view3">集中投诉 |</router-link>
+        <router-link class="routerClass" to="/view3">空分管控 |</router-link>
+        <router-link class="routerClass" to="/view3">实时监控 |</router-link>
+        <router-link class="routerClass" to="/view3">专项分析 |</router-link>
+        <router-link class="routerClass" to="/view3">通用警务 |</router-link>
+        <router-link class="routerClass" to="/view3">功能管理统计 |</router-link>
+        <router-link class="routerClass" to="/view3">系统管理 |</router-link>
+        <router-view/>
+      </div>
+    </div>
+      <!--<div class="timeClass">{{nowTime}}</div>　　　　-->
+    <!--  <div class="menu">
+        <ul class="menubar">
+          <li class="menu-value" ><a href="">产品</a></li>
+          <li class="" ><a href="/view1">工具与镜像</a></li>
+          <li class="" ><a href="">客户与伙伴</a></li>
+          <li class="" ><a href="">帮助与支持</a></li>
+          <li class="" ><a href="">论坛与博客</a></li>
+        </ul>
+      </div>-->
+      <!--<div class="routerParent">-->
+        <!--<router-link class="routerClass" to="/view3">集中分析 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">集中参数 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">集中投诉 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">空分管控 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">实时监控 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">专项分析 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">通用警务 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">功能管理统计 |</router-link>-->
+        <!--<router-link class="routerClass" to="/view3">系统管理 |</router-link>-->
+        <!--<router-view/>-->
+      <!--</div>-->
+　　</div>
+</template>
+<style scoped>
+  @import '../../static/css/menu.css';
+</style>
+<script type="text/javascript">
+  export default {
+    data() {
+      return {
+        nowTime:new Date()
+      }
+    },
+    methods: {
+      // 获取当前时间函数
+      timeFormate(timeStamp) {
+        let year = new Date(timeStamp).getFullYear();
+        let month =new Date(timeStamp).getMonth() + 1 < 10? "0" + (new Date(timeStamp).getMonth() + 1): new Date(timeStamp).getMonth() + 1;
+        let date =new Date(timeStamp).getDate() < 10? "0" + new Date(timeStamp).getDate(): new Date(timeStamp).getDate();
+        let hh =new Date(timeStamp).getHours() < 10? "0" + new Date(timeStamp).getHours(): new Date(timeStamp).getHours();
+        let mm =new Date(timeStamp).getMinutes() < 10? "0" + new Date(timeStamp).getMinutes(): new Date(timeStamp).getMinutes();
+        let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
+        let day = new Date(timeStamp).getDay() < 7? "0" + new Date(timeStamp).getDay(): new Date(timeStamp).getDay();
+        this.nowTime = year + "年" + month + "月" + date +"日"+" "+hh+":"+mm+":"+ss+' '+"星期" + "日一二三四五六".charAt(day);
+      },
+      // 定时器函数
+      nowTimes(){
+        this.timeFormate(new Date());
+        setTimeout(this.nowTimes,1000);
+      }
+    },
+    //创建完成时调用
+    created() {
+      this.nowTimes();
+    },
+//    mounted(){
+//      this.timeFormate();
+//    }
+  }
+</script>
+
+<style>
+</style>
