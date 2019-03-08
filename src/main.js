@@ -11,6 +11,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import axios from 'axios'
 // Vue.prototype.$http=axios
 // 导入 css
+//import Icon from 'vue-svg-icon/Icon.vue' //引入
+
+//Vue.component('icon', Icon) //注册
 import 'vue-easytable/libs/themes-base/index.css'
 
 // 导入组件
