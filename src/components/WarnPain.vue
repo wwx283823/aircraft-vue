@@ -69,7 +69,6 @@
   @import '../../static/css/app.css';
 </style>
 <script type="text/javascript">
-  import icon from 'vue-svg-icon/Icon.vue'
   export default {
     data() {
       return {

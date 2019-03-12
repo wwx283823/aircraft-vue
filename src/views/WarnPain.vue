@@ -4,7 +4,7 @@
         <div class="row" style="margin-top: 15px;">
           <div class="col-xs-2 col-sm-2 col-md-2">
             <label class="bodyHtmlLabel">用户数</label>
-            <input id="userId" type="text" class="bodyHtmlInput" v-model="myParam.userCount" />
+            <input id="userId" type="text" class="bodyHtmlInput" v-model="myParam.userCnt" />
           </div>
           <div class="col-xs-2 col-sm-2 col-md-2">
             <label class="bodyHtmlLabel">小区干扰</label>
@@ -19,7 +19,7 @@
             <input  id="ucDLRbRateId" type="text" class="bodyHtmlInput" v-model="myParam.ucDLRbRate" />
           </div>
           <div class="col-xs-1 col-sm-1 col-md-1">
-            <button @click="getHighHeavyLoad" type="button" class="btn btn-info" >过滤</button>
+            <button @click="getWirelessInfoByParam" type="button" class="btn btn-info" >过滤</button>
           </div>
         </div>
         <div class="row">
@@ -34,7 +34,7 @@
               :vertical-resize-offset='55'
               :min-height='100'
               :columns="columns"
-              :table-data="tableData"
+              :table-data="myTableData"
               row-hover-color="#eee"
               row-click-color="#edf7ff"
             ></v-table>
@@ -69,85 +69,84 @@
   @import '../../static/css/app.css';
 </style>
 <script type="text/javascript">
-  import icon from 'vue-svg-icon/Icon.vue'
   import axios from 'axios'
   export default {
     data() {
       return {
         myParam:{
-          userCount:12,
-          cellInterference:'-102dpm',
-          ucULRbRate:'56%',
-          ucDLRbRate:'45%'
+          userCnt:10,
+          cellInterference:-101,
+          ucULRbRate:56,
+          ucDLRbRate:45
         },
+        cellIdLists:[],
         nowTime:new Date(),
-        tableData: [
-          {"svcCellId":"小区1","userCnt":"12","ULCellInterference":"-102dpm","ucULRbRate":"56%","ucDLRbRate":"55%"},
-          {"svcCellId":"小区2","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"47%","ucDLRbRate":"24%"},
-          {"svcCellId":"小区3","userCnt":"11","ULCellInterference":"-108dpm","ucULRbRate":"68%","ucDLRbRate":"67%"},
-          {"svcCellId":"小区4","userCnt":"25","ULCellInterference":"-105dpm","ucULRbRate":"52%","ucDLRbRate":"53%"},
-          {"svcCellId":"小区1","userCnt":"12","ULCellInterference":"-102dpm","ucULRbRate":"56%","ucDLRbRate":"55%"},
-          {"svcCellId":"小区2","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"47%","ucDLRbRate":"24%"},
-          {"svcCellId":"小区3","userCnt":"11","ULCellInterference":"-108dpm","ucULRbRate":"68%","ucDLRbRate":"67%"},
-          {"svcCellId":"小区4","userCnt":"25","ULCellInterference":"-105dpm","ucULRbRate":"52%","ucDLRbRate":"53%"},
-          {"svcCellId":"小区1","userCnt":"12","ULCellInterference":"-102dpm","ucULRbRate":"56%","ucDLRbRate":"55%"},
-          {"svcCellId":"小区2","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"47%","ucDLRbRate":"24%"},
-          {"svcCellId":"小区3","userCnt":"11","ULCellInterference":"-108dpm","ucULRbRate":"68%","ucDLRbRate":"67%"},
-          {"svcCellId":"小区4","userCnt":"25","ULCellInterference":"-105dpm","ucULRbRate":"52%","ucDLRbRate":"53%"},
-          {"svcCellId":"小区1","userCnt":"12","ULCellInterference":"-102dpm","ucULRbRate":"56%","ucDLRbRate":"55%"},
-          {"svcCellId":"小区2","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"47%","ucDLRbRate":"24%"},
-          {"svcCellId":"小区3","userCnt":"11","ULCellInterference":"-108dpm","ucULRbRate":"68%","ucDLRbRate":"67%"},
-          {"svcCellId":"小区4","userCnt":"25","ULCellInterference":"-105dpm","ucULRbRate":"52%","ucDLRbRate":"53%"}
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"},
-//          {"svcCellId":"小区1","userCnt":"21","ULCellInterference":"-122dpm","ucULRbRate":"56%","ucDLRbRate":"65%"}
-        ],
+        myTableData:[],
         columns: [
-          {field: 'svcCellId', title: '小区名', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'userCnt', title: '用户数', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ULCellInterference', title: '上行干扰', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucULRbRate', title: '上行PRB利用率', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucDLRbRate', title: '下行PRB利用率', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true}
+          {field: 'ulServiceCellId', title: 'ulServiceCellId', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'uleNodebId', title: 'uleNodebId', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulCellInterference', title: 'ulCellInterference', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucULRbRate', title: 'ucULRbRate', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucDLAvgMcs', title: 'ucDLAvgMcs', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucULAvgMcs', title: 'ucULAvgMcs', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulActiveUserNum', title: 'ulActiveUserNum', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULActiveUserAvgRate', title: 'ulULActiveUserAvgRate', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULCellTraffic', title: 'ulULCellTraffic', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usAvgUserNum', title: 'usAvgUserNum', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usCpuRate', title: 'usCpuRate', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usMaxUserNum', title: 'usMaxUserNum', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucDLRbRate', title: 'ucDLRbRate', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
         ]
       }
     },
-    componets:{icon},
     methods:{
-      getSvgDocuments(){
-        var myDocument = document.getElementById("svgId");
-        var sss = "cellId2";
+      redSvgDocuments(cellId){
+        let myDocument = document.getElementById("svgId");
+        let sss = "cellId"+cellId;
         myDocument.getSVGDocument().getElementById(sss).setAttributeNS(null, "fill", "red")
       },
-      getHighHeavyLoad(){
-        this.getSvgDocuments();
-        axios.get('/api/getHighHeavyLoad').
-        then(function(response){
-          console.log(response);
-          console.log(response.data);
+      restSvgDocuments(){
+        let myDocument = document.getElementById("svgId");
+        for(let i = 0;i<this.cellIdLists.length;i++){
+          let id = this.cellIdLists[i];
+          let cellId = "cellId"+id;
+          myDocument.getSVGDocument().getElementById(cellId).setAttributeNS(null, "fill", "#FEEEFF")
+        }
+        this.cellIdLists = [];
+      },
+      getWirelessInfos(){
+          let _this = this;
+          axios.get('/api/getWirelessInfos').
+          then(function(response){
+            _this.myTableData = response.data;
+            console.log(this.myTableData);
+          }).catch(function(err){
+            console.log(err);
+          });
+
+      },
+      getWirelessInfoByParam(){
+        this.restSvgDocuments();
+        axios.get('/api/getWirelessInfoByParam',{
+          params:
+            this.myParam
+        }).
+        then(response =>{
+          let dataList = response.data;
+          for(let i = 0;i<dataList.length;i++){
+            let model = dataList[i];
+            this.cellIdLists.push(model.ulServiceCellId);
+            this.redSvgDocuments(model.ulServiceCellId);
+          }
         }).catch(function(err){
           console.log(err);
         });
 
       }
+    },
+    created(){
+      this.getWirelessInfos();
     }
-//    mounted(){
-//      this.timeFormate();
-//    }
   }
 
 </script>

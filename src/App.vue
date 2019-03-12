@@ -12,9 +12,7 @@
   @import '../static/css/app.css';
 </style>
 <script>
-  import firstcomponent from './components/FirstComponent.vue'
   import menuId from './components/Menu.vue'
-  import BodyHtml from './components/WarnPain.vue'
   import axios from 'axios'
   export default {
     name: 'app',
@@ -23,7 +21,7 @@
         msg: 'Welcome to Your Vue.js App'
       }
     },
-    components: {menuId,BodyHtml},
+    components: {menuId},
     methods:{
       get(){
         axios.get('/api/hperfdef1').
