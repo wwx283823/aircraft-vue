@@ -4,7 +4,6 @@
     <h1>{{msg}}</h1>
     <firstcomponent></firstcomponent>-->
     <menuId></menuId>
-    <BodyHtml></BodyHtml>
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
   </div>
@@ -15,7 +14,7 @@
 <script>
   import firstcomponent from './components/FirstComponent.vue'
   import menuId from './components/Menu.vue'
-  import BodyHtml from './components/BodyHtml.vue'
+  import BodyHtml from './components/WarnPain.vue'
   import axios from 'axios'
   export default {
     name: 'app',

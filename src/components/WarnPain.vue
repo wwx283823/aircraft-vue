@@ -7,19 +7,19 @@
             <input type="text" class="bodyHtmlInput" value="22"/>
           </div>
           <div class="col-xs-2 col-sm-2 col-md-2">
-            <label class="bodyHtmlLabel">小区干扰</label>
+            <label class="bodyHtmlLabel">小区干扰2</label>
             <input type="text" class="bodyHtmlInput" value="22"/>
           </div>
-          <div class="col-xs-3 col-sm-3 col-md-3">
+          <div class="col-xs-2 col-sm-2 col-md-2">
             <label class="bodyHtmlLabel">ULPRB利用率</label>
             <input  type="text" class="bodyHtmlInput" value="22"/>
           </div>
-          <div class="col-xs-3 col-sm-3 col-md-3">
+          <div class="col-xs-2 col-sm-2 col-md-2">
             <label class="bodyHtmlLabel">DLPRB利用率</label>
             <input  type="text" class="bodyHtmlInput"value="22"/>
           </div>
           <div class="col-xs-1 col-sm-1 col-md-1">
-            <button @click="getSvgDocuments">过滤</button>
+            <button @click="getHighHeavyLoad">过滤</button>
           </div>
         </div>
         <div class="row">
@@ -39,28 +39,28 @@
               row-click-color="#edf7ff"
             ></v-table>
         </div>
-          <div class="col-xs-1 col-md-1 col-sm-1">
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <a onclick="getSVGDocument()"  class="bodyHtmlLabelR">痛点指示告警</a>
-              </div>
-            </div>
-            <div class="row topR">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <a class="bodyHtmlLabelR">大话务保障</a>
-              </div>
-            </div>
-            <div class="row topR">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <a class="bodyHtmlLabelR">AI参数优化</a>
-              </div>
-            </div>
-            <div class="row topR">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <a class="bodyHtmlLabelR">智能分析系统</a>
-              </div>
-            </div>
-          </div>
+          <!--<div class="col-xs-1 col-md-1 col-sm-1">-->
+            <!--<div class="row">-->
+              <!--<div class="col-xs-12 col-sm-12 col-md-12">-->
+                <!--<a onclick="getSVGDocument()"  class="bodyHtmlLabelR">痛点指示告警</a>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row topR">-->
+              <!--<div class="col-xs-12 col-sm-12 col-md-12">-->
+                <!--<a class="bodyHtmlLabelR">大话务保障</a>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row topR">-->
+              <!--<div class="col-xs-12 col-sm-12 col-md-12">-->
+                <!--<a class="bodyHtmlLabelR">AI参数优化</a>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row topR">-->
+              <!--<div class="col-xs-12 col-sm-12 col-md-12">-->
+                <!--<a class="bodyHtmlLabelR">智能分析系统</a>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
       </div>
 　　</div>
@@ -114,6 +114,7 @@
         var sss = "textId";
         myDocument.getSVGDocument().getElementById(sss).setAttributeNS(null, "fill", "blue")
       }
+
     }
 //    mounted(){
 //      this.timeFormate();

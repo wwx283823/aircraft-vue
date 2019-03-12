@@ -7,6 +7,7 @@
   font-size: 18px;
 }
 .bodyHtmlInput{
+  width: 40%;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 6px 12px 4px;
@@ -23,4 +24,21 @@
 .timeClass{
   color: white;
   font-size: 18px;
+}
+.title-cell-class-name-test{
+  background-color: #f60;
+  color:#fff;
+}
+.column-cell-class-name-test{
+  background-color: #187;
+}
+.column-cell-class-name-test .v-table-body-cell{
+  border-color: #187;
+}
+.column-cell-class-name-test2{
+  background-color: #2db7f5;
+  font-weight: bold;
+}
+.column-cell-class-name-test2 .v-table-body-cell{
+  border-color: #2db7f5;
 }

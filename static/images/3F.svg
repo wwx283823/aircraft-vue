@@ -6,19 +6,7 @@
 	 xml:space="preserve">
 
 <script type="text/javascript">
-<![CDATA[
-  function changeColor(evt)
-  {
-    var rect = evt.target;
-    rect.setAttributeNS(null, "fill", "blue")
-        axios.get('/api/hperfdef1').
-        then(function(response){
-            console.log(response);
-           }).catch(function(err){
-            console.log(err);
-        });
-  }
-  ]]>
+
 </script>
 <polygon fill="#ECECEC" stroke="#000000" stroke-width="3" stroke-miterlimit="10" points="1595.276,48.19 1588.276,443.062
 	1608.276,822.19 924.276,746.19 756.276,732.19 756.276,567.19 507.776,567.19 507.776,646.69 248.776,646.69 248.776,275.69
@@ -49,20 +37,23 @@
 	208.276,81.25 208.276,232.512 375.776,232.512 375.776,102.19 498.276,102.19 498.276,228.19 458.276,228.19 458.276,249.19
 	498.276,249.19 501.026,249.19 527.276,249.19 527.276,86.88 580.276,86.88 580.276,81.25 "/>
 <polygon fill="#A5A5A5" points="1537.776,548.69 1537.776,631.94 1598.24,631.94 1593.849,548.69 "/>
-<path fill="#FEEEFF" stroke="#1C1C1C" stroke-miterlimit="10" d="M1433.276,680.94c0,0,28.25-19.75,74-18.75s83.5,29.25,82.5,61
+<path id="cellId3" fill="#FEEEFF" stroke="#1C1C1C" stroke-miterlimit="10" d="M1433.276,680.94c0,0,28.25-19.75,74-18.75s83.5,29.25,82.5,61
 	c0,0,5,50.25-79.75,61.75c0,0-45,6.75-76.75-17V680.94z"/>
-<rect x="253.026" y="592.44" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="130" height="52.5">
+    <text x="1483.026" y="730.44" fill="blank">小区3</text>
+<rect id="cellId1" x="253.026" y="592.44" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="130" height="52.5">
   <!--<set attributeName="fill" to="blue" begin="click"/>-->
   <!--<set attributeName="fill" to="blank"-->
          <!--begin="mouseover" end="mouseout"/>-->
    <!--<set attributeName="fill" from="black" to="red"-->
          <!--begin="mousedown" end="mouseup"/>-->
 </rect>
- <text x="253.026" y="592.44" fill="red">白杰</text>
+  <text x="283.026" y="620.44" fill="blank">小区1</text>
 <rect x="91.026" text="102" y="98.982" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="68.125" height="131.333"/>
-<rect x="380.943" y="103.357" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="115.333" height="123.083"/>
+<rect id="cellId2" x="380.943" y="103.357" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="115.333" height="123.083"/>
+  <text x="415.026" y="168.44" fill="blank">小区2</text>
 <rect x="941.776" y="500.565" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="62.625" height="124.625"/>
-<rect x="1161.401" y="99.315" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="120.25" height="61.75"/>
+<rect id="cellId4" x="1161.401" y="99.315" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="120.25" height="61.75"/>
+  <text x="1200.026" y="135.44" fill="blank">小区4</text>
 <rect x="1504.776" y="380.815" fill="#FEEEFF" stroke="#000000" stroke-miterlimit="10" width="63.232" height="117.875"/>
 <polygon fill="#A5A5A5" stroke="#1C1C1C" stroke-miterlimit="10" points="1504.776,353.107 1504.776,379.44 1568.86,379.44
 	1568.86,499.107 1572.693,499.107 1572.693,379.44 1572.693,373.774 1572.693,353.107 "/>

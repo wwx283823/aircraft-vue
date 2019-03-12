@@ -2,11 +2,15 @@
 　　<div id="menuId">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-2 col-sm-2 col-md-2 timeClass">
+        <div class="col-xs-3 col-sm-3 col-md-3 timeClass">
           {{nowTime}}
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="    margin-top: 15px;">
+        <router-link class="routerClass" to="/warn">痛点指示告警 |</router-link>
+        <router-link class="routerClass" to="/view3">大话务保障 |</router-link>
+        <router-link class="routerClass" to="/view3">AI参数优化 |</router-link>
+        <router-link class="routerClass" to="/view3">智能分析系统 |</router-link>
         <router-link class="routerClass" to="/view3">集中分析 |</router-link>
         <router-link class="routerClass" to="/view3">集中参数 |</router-link>
         <router-link class="routerClass" to="/view3">集中投诉 |</router-link>

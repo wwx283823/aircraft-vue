@@ -4,7 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 // import menu from  '@/components/menu'
 import View1 from '@/views/View1.vue'
 import View2 from '@/views/View2.vue'
-
+import warn from '@/views/WarnPain.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +21,14 @@ export default new Router({
       path: '/view2',
       component: View2
     },
+    , {
+      path: '/',
+      component: warn
+    }
+    , {
+      path: '/warn',
+      component: warn
+    }
     //  {
     //   path: '/menu',
     //   component: menu
