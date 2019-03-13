@@ -5,6 +5,7 @@ import HelloWorld from '@/components/HelloWorld'
 import View1 from '@/views/View1.vue'
 import View2 from '@/views/View2.vue'
 import warn from '@/views/WarnPain.vue'
+import bigTalk from '@/views/BigTalk.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,10 @@ export default new Router({
     , {
       path: '/warn',
       component: warn
+    },
+    {
+      path: '/bigTalk/:cellId',
+      component: bigTalk
     }
     //  {
     //   path: '/menu',

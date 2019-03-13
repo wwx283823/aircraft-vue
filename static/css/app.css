@@ -25,8 +25,8 @@
   color: white;
   font-size: 18px;
 }
-.title-cell-class-name-test{
-  background-color: #f60;
+.titleCell{
+  background-color: red;
   color:#fff;
 }
 .column-cell-class-name-test{

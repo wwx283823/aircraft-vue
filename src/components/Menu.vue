@@ -1,6 +1,11 @@
 <template>
-　　<div id="menuId">
+　　<div id="menuId" style="    margin-top: -60px;">
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 ">
+          <img src="../../static/images/title.png"/>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 timeClass">
           {{nowTime}}
@@ -8,7 +13,7 @@
       </div>
       <div class="row" style="    margin-top: 15px;">
         <router-link class="routerClass" to="/warn">痛点指示告警 |</router-link>
-        <router-link class="routerClass" to="/view3">大话务保障 |</router-link>
+        <router-link class="routerClass" to="/bigTalk/cellId2">大话务保障 |</router-link>
         <router-link class="routerClass" to="/view3">AI参数优化 |</router-link>
         <router-link class="routerClass" to="/view3">智能分析系统 |</router-link>
         <router-link class="routerClass" to="/view3">集中分析 |</router-link>
