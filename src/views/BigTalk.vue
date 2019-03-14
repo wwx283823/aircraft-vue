@@ -83,14 +83,15 @@
             <ul class="nav nav-tabs">
               <li class="active">
                 <a href="#home" data-toggle="tab">
-                  数据图表
+                  当前数据图表
                 </a>
               </li>
-              <li><a href="#ios" data-toggle="tab">历史记录</a></li>
+              <li><a href="#ios" data-toggle="tab">历史调整记录</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane fade in active" id="home">
                 <div id="myChart" :style="{ height: '300px'}"></div>
+                <div id="myChart2" :style="{ height: '300px'}"></div>
               </div>
               <div class="tab-pane fade" id="ios">
                 <v-table
@@ -101,7 +102,7 @@
                   :min-height='150'
                   :max-height='400'
                   :columns="columns"
-                  :table-data="myTableData"
+                  :table-data="historyTableData"
                   row-hover-color="#eee"
                   row-click-color="#edf7ff"
                 ></v-table>
@@ -142,7 +143,9 @@
   export default {
     data() {
       return {
-        selectType:0,
+        historyData:[],
+        historyTableData:[],
+        myCellIdList:['cellId1','cellId2','cellId13','cellId4'],
         options:[
           {
             name:'频点间基于用户数的快速负载均衡',
@@ -177,26 +180,102 @@
         myCellId:this.$route.params.cellId,
         myShow:false,
         cellIdLists:[],
-        myTableData:[],
         columns: [
-          {field: 'ulServiceCellId', title: '小区ID', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'uleNodebId', title: 'NodebId', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usMaxUserNum', title: '最大用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulCellInterference', title: '小区干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucULRbRate', title: '上行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucDLRbRate', title: '下行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucULAvgMcs', title: '上行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucDLAvgMcs', title: '下行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulActiveUserNum', title: '活动用户数(人/s)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulULActiveUserAvgRate', title: '上行平均感知速率(kbps)', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulULCellTraffic', title: '上行小区流量(kbps)', width: 35, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usAvgUserNum', title: '平均用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usCpuRate', title: 'CPU利用率', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
+          {field: 'type', title: '调整策略', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulrbmaxrate', title: '上行RB利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'dlrbmaxrate', title: '下行RB利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulcellmaxinterference', title: '最大上行干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'maxcelluser', title: '最大用户数门限', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'neibouruserrate', title: '与邻区用户数超出比例 (%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usercntsw', title: '用户数开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'rsrpdeltasw', title: 'RSRP门限开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'rspwrdeltasw', title: 'RS功率开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usercnt', title: '用户数步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'rsrpdelta', title: 'RSRP门限步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'rspwrdelta', title: 'RS功率步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
 
         ]
       }
     },
     methods:{
+      getEchartsDataByCellId(){
+        let _this = this;
+        axios.get('/api/getEchartsDataByCellId',{
+          params:
+            {'ulServiceCellId':13}
+        }).
+        then(function(response){
+          let resultData = response.data;
+          _this.echartsDataFormat(resultData);
+        }).catch(function(err){
+          console.log(err);
+        });
+      },
+      historyDataFormat(historyData){
+        for (let i=0;i<historyData.length;i++){
+          if(historyData[i].type==0){
+            historyData[i].type = '频点间基于用户数的快速负载均衡';
+            historyData[i].ulcellmaxinterference = '无';
+            historyData[i].maxcelluser = '无';
+            historyData[i].neibouruserrate = '无';
+            historyData[i].rsrpdeltasw = '无';
+            historyData[i].rspwrdeltasw = '无';
+            historyData[i].rsrpdelta = '无';
+            historyData[i].rspwrdelta = '无';
+            if(historyData[i].usercntsw==0){
+              historyData[i].usercnt = '无'
+            }
+          }
+          if(historyData[i].type==1){
+            historyData[i].type = '基于干扰的快速负载均衡';
+            historyData[i].ulrbmaxrate = '无';
+            historyData[i].dlrbmaxrate = '无';
+            historyData[i].maxcelluser = '无';
+            historyData[i].neibouruserrate = '无';
+            if(historyData[i].usercntsw==0){
+              historyData[i].usercnt = '无'
+            }
+            if(historyData[i].rsrpdeltasw==0){
+              historyData[i].rsrpdelta = '无'
+            }
+            if(historyData[i].rspwrdeltasw==0){
+              historyData[i].rspwrdelta = '无'
+            }
+          }
+          if(historyData[i].type==2){
+            historyData[i].type = '基于用户数的快速调整';
+            historyData[i].rsrpdeltasw = '无';
+            historyData[i].rsrpdelta = '无';
+            historyData[i].ulcellmaxinterference = '无';
+            historyData[i].dlrbmaxrate = '无';
+            if(historyData[i].usercntsw==0){
+              historyData[i].usercnt = '无'
+            }
+            if(historyData[i].rspwrdeltasw==0){
+              historyData[i].rspwrdelta = '无'
+            }
+          }
+          if(historyData[i].usercntsw==0){
+            historyData[i].usercntsw = '关闭'
+          }
+          if(historyData[i].usercntsw==1){
+            historyData[i].usercntsw = '开启'
+          }
+          if(historyData[i].rsrpdeltasw==0){
+            historyData[i].rsrpdeltasw = '关闭'
+          }
+          if(historyData[i].rsrpdeltasw==1){
+            historyData[i].rsrpdeltasw = '开启'
+          }
+          if(historyData[i].rspwrdeltasw==0){
+            historyData[i].rspwrdeltasw = '关闭'
+          }
+          if(historyData[i].rspwrdeltasw==1){
+            historyData[i].rspwrdeltasw = '开启'
+          }
+        }
+        return historyData;
+      },
       redSvgDocuments(cellId){
         let myDocument = document.getElementById("svgId");
         let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
@@ -235,14 +314,23 @@
           }
       },
       addColorOrTip(e){
-          if(e.getAttribute("fill")=="red"){
-//            alert(e.getAttribute("id"));
-            this
-          }else{
-            this.restSvgDocuments();
-            this.cellIdLists.push(e.getAttribute("id"));
-             e.setAttributeNS(null, "fill", "red");
-          }
+        this.restSvgDocuments();
+        this.cellIdLists.push(e.getAttribute("id"));
+         e.setAttributeNS(null, "fill", "red");
+      },
+      getHistoryBigTalkByCellId(cellId){
+        let _this = this;
+        axios.get('/api/getHistoryBigTalkByCellId',{
+          params:
+            {'cellId':cellId}
+        }).
+        then(function(response){
+            let resultData = response.data;
+            _this.historyTableData = _this.historyDataFormat(resultData);
+        }).catch(function(err){
+          console.log(err);
+        });
+
       },
       myDblclick(e,event){
 //        alert("123");
@@ -268,25 +356,31 @@
       addSvgClick(){
         let _this = this;
         let myDocument = document.getElementById("svgId");
-        let sss = "cellId13";
-        myDocument.getSVGDocument().getElementById(sss).addEventListener("click",function() {
-          _this.addColorOrTip(this);
-        });
-        myDocument.getSVGDocument().getElementById("cellId2").addEventListener("click",function() {
-          _this.addColorOrTip(this);
-        });
-        myDocument.getSVGDocument().getElementById("cellId1").addEventListener("click",function() {
-          _this.addColorOrTip(this);
-        });
-        myDocument.getSVGDocument().getElementById("cellId4").addEventListener("click",function() {
-          _this.addColorOrTip(this);
-        });
-//        myDocument.getSVGDocument().getElementById("cellId4").addEventListener("dblclick",function($event) {
-//          _this.myDblclick(this,$event);
-//        });
-//        myDocument.getSVGDocument().getElementById("cellId13").addEventListener("dblclick",function($event) {
-//          _this.myDblclick(this,$event);
-//        });
+        for (let i = 0 ; i <_this.myCellIdList.length;i++){
+          let cellId = _this.myCellIdList[i];
+          myDocument.getSVGDocument().getElementById(cellId).addEventListener("click",function() {
+            _this.addColorOrTip(this);
+            _this.getHistoryBigTalkByCellId(cellId);
+            _this.getEchartsDataByCellId();
+          });
+        }
+        // let sss = "cellId13";
+        // myDocument.getSVGDocument().getElementById(sss).addEventListener("click",function() {
+        //   _this.addColorOrTip(this);
+        //   _this.getHistoryBigTalkByCellId(sss);
+        // });
+        // myDocument.getSVGDocument().getElementById("cellId2").addEventListener("click",function() {
+        //   _this.addColorOrTip(this);
+        //   _this.getHistoryBigTalkByCellId("cellId2");
+        // });
+        // myDocument.getSVGDocument().getElementById("cellId1").addEventListener("click",function() {
+        //   _this.addColorOrTip(this);
+        //   _this.getHistoryBigTalkByCellId("cellId1");
+        // });
+        // myDocument.getSVGDocument().getElementById("cellId4").addEventListener("click",function() {
+        //   _this.addColorOrTip(this);
+        //   _this.getHistoryBigTalkByCellId("cellId4");
+        // });
       },
       getWirelessInfoByParam(){
 //        this.addSvgClick();
@@ -307,21 +401,140 @@
         });
 
       },
-      drawLine(){
-        let myChart = this.$echarts.init(document.getElementById('myChart'))
+      echartsDataFormat(ehartsData){
+        let maxUserData = [];
+        let ulrbmaxrateData = [];
+        let dlrbmaxrateData = [];
+        let xData = [];
+        let maxSeries = [];
+        let rbmaxrateSeries = [];
+        let maxName = '用户数';
+        let ulName = '上行RB利用率';
+        let dlName = '下行RB利用率';
+        let legendUlData = [];
+        let legendUserData = [];
+        legendUlData.push(ulName);
+        legendUlData.push(dlName);
+        legendUserData.push(maxName);
+        for (let i = 0;i<ehartsData.length;i++){
+          let models = ehartsData[i];
+          maxUserData.push(models.usMaxUserNum);
+          ulrbmaxrateData.push(models.ucULRbRate);
+          dlrbmaxrateData.push(models.ucDLRbRate);
+          let times = models.timestamp.split("T")[1].split(".")[0];
+          let timesSet = times.split(":");
+          let result = parseInt(timesSet[0])+8
+          if(result>23){
+            result = result-24;
+          }
+          xData.push(result+":"+timesSet[1]+":"+timesSet[2]);
+        }
+        let userJson = {
+          name:maxName,
+          type:'line',
+          data:maxUserData
+        };
+        maxSeries.push(userJson);
+        let rbmaxrateJson1 = {
+          name:ulName,
+          type:'line',
+          data:ulrbmaxrateData
+        };
+        let rbmaxrateJson2 = {
+          name:dlName,
+          type:'line',
+          data:dlrbmaxrateData
+        };
+        rbmaxrateSeries.push(rbmaxrateJson1);
+        rbmaxrateSeries.push(rbmaxrateJson2);
+        this.drawLine('myChart',xData,legendUserData,maxSeries,'(人)','当前用户数');
+        this.drawLine('myChart2',xData,legendUlData,rbmaxrateSeries,'(%)','RB利用率');
+      },
+      drawLine(echartId,ehartsX,echartslegend,ehartsSeries,danwei,myTitle){
+
+        let myChart = this.$echarts.init(document.getElementById(echartId))
         // 绘制图表
         myChart.setOption({
-          title: { text: '在Vue中使用echarts' },
-          tooltip: {},
-          xAxis: {
-            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+          title: {
+            text: myTitle,
+            textStyle:{
+              color:'#ffffff',
+              fontSize:18
+            }
           },
-          yAxis: {},
-          series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-          }]
+          toolbox: {
+            show : true,
+            feature : {
+              saveAsImage : {show: true}
+            },
+            // iconStyle:{
+            //   normal:{
+            //     color:'white',//设置颜色
+            //   }
+            // }
+          },
+          tooltip: {
+            trigger:'axis',
+            axisPointer:{
+              type:'cross',
+              label:{
+                backgroundColor:'#283b56'
+              }
+            }
+          },
+          color:['#fbcc8a','#f23457','#cd4646','#ad5cf8'],
+          legend:{
+            data:echartslegend,
+            textStyle:{
+              color: ['#fbcc8a','#f23457','#cd4646','#ad5cf8'],
+              fontSize:18
+            }
+
+          },
+          xAxis: {
+            type:'category',
+            boundaryGap: false,
+            data: ehartsX,
+            axisLine:{
+              onZero:true,
+              lineStyle:{
+                color:'#fbd01b',
+                width:5
+              }
+            },
+            axisLabel:{
+              textStyle:{
+                color:'#ffffff',
+                fontSize:18
+              }
+            }
+          },
+          yAxis: {
+            name:danwei,
+            min:0,
+            nameTextStyle:{
+              color:'#ffffff',
+              fontSize:18
+            },
+            type:'value',
+            scale:true,
+            splitLine:{
+              show:true
+            },
+            axisLine:{
+              lineStyle:{
+                color:'#fbd01b',
+                width:5
+              }
+            },
+            axisLabel:{
+              textStyle:{
+                color:'#ffffff',
+                fontSize:18
+              }
+            }
+          },
+          series: ehartsSeries
         });
       },
       checkFunction(data){
@@ -357,6 +570,7 @@
                 alert("请输入RSRP门限步长");
                 return false;
               }
+
             }
             if(data.rspwrdeltasw.trim()=='1'){
               if(data.rspwrdelta.trim()==''){
@@ -410,7 +624,7 @@
         }
         this.addSvgClick();
       }, 1000)
-      this.drawLine();
+      // this.drawLine();
 
     },
   }
