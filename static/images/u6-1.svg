@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="600px" height="480px" viewBox="0 0 600 480" enable-background="new 0 0 600 480" xml:space="preserve">
+<image overflow="visible" width="2000" height="2500" xlink:href="U6食堂SVG地图.png"  transform="matrix(1.077518e-011 -0.24 0.24 1.077518e-011 5.776875e-005 480.0001)">
+</image>
+<ellipse id="Cell5:09c51A06" opacity="0.8" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="194.75" cy="83" rx="40.25" ry="65"/>
+<ellipse id="Cell2:09c51A03" opacity="0.8" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="92.75" cy="85" rx="80.75" ry="34.25"/>
+<circle id="Cell3:09c51A04" opacity="0.8" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="151.999" cy="344" r="117.5"/>
+<ellipse id="Cell6:09c51A07" opacity="0.8" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="477.5" cy="83" rx="111.5" ry="43.25"/>
+<ellipse id="Cell4:09c51A05" opacity="0.8" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="471" cy="234.25" rx="118" ry="59.25"/>
+<text transform="matrix(1 0 0 1 63.0001 92.6667)" font-family="'MicrosoftYaHei'" font-size="24">Cell2</text>
+<text transform="matrix(1 0 0 1 175.6667 92.6667)" font-family="'MicrosoftYaHei'" font-size="24">Cell5</text>
+<text transform="matrix(1 0 0 1 121 346.3333)" font-family="'MicrosoftYaHei'" font-size="24">Cell3</text>
+<text transform="matrix(1 0 0 1 450.3333 91)" font-family="'MicrosoftYaHei'" font-size="24">Cell6</text>
+<text transform="matrix(1 0 0 1 441.3333 243)" font-family="'MicrosoftYaHei'" font-size="24">Cell4</text>
+</svg>

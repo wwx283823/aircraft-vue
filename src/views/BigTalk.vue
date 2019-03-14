@@ -2,48 +2,111 @@
 　　<div id="bodyHtml">
       <div class="container-fluid">
         <div class="row" style="margin-top: 15px;">
-          <div class="col-xs-2 col-sm-2 col-md-2">
-            <label class="bodyHtmlLabel">最大用户数</label>
-            <input id="userId" type="text" class="bodyHtmlInput" v-model="myParam.userCnt" />
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <label class="bodyHtmlLabel">调整策略:</label>
+            <select v-model="HeavyLoadParam.type" class="bigTalkSelect">
+              <option v-for="item in options" :value="item.value">
+                {{item.name}}
+              </option>
+            </select>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
-            <label class="bodyHtmlLabel">小区干扰</label>
-            <input id="cellInterferenceId" type="text" class="bodyHtmlInput"  v-model="myParam.cellInterference" />
-          </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+          <div v-show="HeavyLoadParam.type==0" class="col-xs-6 col-sm-6 col-md-6"　>
             <label class="bodyHtmlLabel">上行RB利用率</label>
-            <input id="ucULRbRateId" type="text" class="bodyHtmlInput"  v-model="myParam.ucULRbRate" />
-          </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+            <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
             <label class="bodyHtmlLabel">下行RB利用率</label>
-            <input  id="ucDLRbRateId" type="text" class="bodyHtmlInput" v-model="myParam.ucDLRbRate" />
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.dlrbmaxrate" />
+            <label class="bodyHtmlLabel">用户数开关</label>
+            <select class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
+            <label class="bodyHtmlLabel">用户数步长</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
+            <button @click="subBigTalkByCellId" type="button" class="btn btn-info" >调整</button>
           </div>
-          <div class="col-xs-1 col-sm-1 col-md-1">
-            <button @click="getWirelessInfoByParam" type="button" class="btn btn-info" >过滤</button>
+          <div v-show="HeavyLoadParam.type==1">
+            <label class="bodyHtmlLabel">最大上行干扰</label>
+            <input  type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulcellmaxinterference" />
+            <label class="bodyHtmlLabel">用户数开关</label>
+            <select  v-model="HeavyLoadParam.usercntsw" class="bigTalkSelect">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
+            <label v-model="HeavyLoadParam.rsrpdeltasw" class="bodyHtmlLabel">RSRP门限开关</label>
+            <select class="bigTalkSelect">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
+            <label v-model="HeavyLoadParam.rspwrdeltasw" class="bodyHtmlLabel">RS功率开关</label>
+            <select class="bigTalkSelect">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
+            <label class="bodyHtmlLabel" >用户数步长</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
+            <label class="bodyHtmlLabel">RSRP门限步长</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rsrpdelta" />
+            <label class="bodyHtmlLabel">RS功率步长</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdelta" />
+            <button @click="subBigTalkByCellId" type="button" class="btn btn-info" >调整</button>
           </div>
+          <div v-show="HeavyLoadParam.type==2">
+            <label class="bodyHtmlLabel">最大用户数门限</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.maxcelluser" />
+            <label class="bodyHtmlLabel">与邻区用户数超出比例</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.neibouruserrate" />
+            <label class="bodyHtmlLabel">上行RB利用率</label>
+            <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
+            <label class="bodyHtmlLabel">用户数开关</label>
+            <select class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw" >
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
+            <label class="bodyHtmlLabel">RS功率开关</label>
+            <select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltasw">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
+            <label class="bodyHtmlLabel">用户数步长</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
+            <label class="bodyHtmlLabel">RS功率步长</label>
+            <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdelta" />
+            <button @click="subBigTalkByCellId" type="button" class="btn btn-info" >调整</button>
+          </div>
+
         </div>
         <div class="row">
           <div class="col-xs-6 col-sm-12 col-md-6">
-            <embed id="svgId" style="width: 100%;height: 100%" src="../../static/images/3F.svg" type="image/svg+xml" />
+            <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/3F.svg" type="image/svg+xml" />
           </div>
           <div class="col-xs-6 col-md-6 col-sm-12" style="padding-top: 1.5%;">
-            <h5>小区历史调整记录</h5>
-            <v-table
-              is-vertical-resize
-              style="width:100%"
-              is-horizontal-resize
-              :vertical-resize-offset='300'
-              :min-height='150'
-              :max-height='400'
-              :columns="columns"
-              :table-data="myTableData"
-              row-hover-color="#eee"
-              row-click-color="#edf7ff"
-            ></v-table>
-            <div id="myChart" :style="{ height: '300px'}"></div>
-          </div>
-          <div id="showId" >hello world
-          asdadasdasdad
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#home" data-toggle="tab">
+                  数据图表
+                </a>
+              </li>
+              <li><a href="#ios" data-toggle="tab">历史记录</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="home">
+                <div id="myChart" :style="{ height: '300px'}"></div>
+              </div>
+              <div class="tab-pane fade" id="ios">
+                <v-table
+                  is-vertical-resize
+                  style="width:100%"
+                  is-horizontal-resize
+                  :vertical-resize-offset='300'
+                  :min-height='150'
+                  :max-height='400'
+                  :columns="columns"
+                  :table-data="myTableData"
+                  row-hover-color="#eee"
+                  row-click-color="#edf7ff"
+                ></v-table>
+              </div>
+            </div>
           </div>
           <!--<div class="col-xs-1 col-md-1 col-sm-1">-->
             <!--<div class="row">-->
@@ -79,13 +142,39 @@
   export default {
     data() {
       return {
-        myCellId:this.$route.params.cellId,
-        myParam:{
-          userCnt:10,
-          cellInterference:-101,
-          ucULRbRate:56,
-          ucDLRbRate:45
+        selectType:0,
+        options:[
+          {
+            name:'频点间基于用户数的快速负载均衡',
+            value:0
+          },
+          {
+            name:'基于干扰的快速负载均衡',
+            value:1
+          },
+          {
+            name:'基于用户数的快速调整',
+            value:2
+          }
+          ],
+        HeavyLoadParam:{
+          type:'0',
+          effecttype:'0',
+          ulcellmaxinterference:'0',
+          ulrbmaxrate:'0',
+          dlrbmaxrate:'0',
+          usercntsw:'1',
+          rsrpdeltasw:'1',
+          rspwrdeltasw:'1',
+          usercnt:'0',
+          rsrpdelta:'0',
+          rspwrdelta:'0',
+          maxcelluser:'0',
+          neibouruserrate:'0',
+          cellId:'',
+          openClose:'1'
         },
+        myCellId:this.$route.params.cellId,
         myShow:false,
         cellIdLists:[],
         myTableData:[],
@@ -129,16 +218,21 @@
         }
         this.cellIdLists = [];
       },
-      getWirelessInfos(){
+      subBigTalkByCellId(){
           let _this = this;
-          axios.get('/api/getWirelessInfos').
-          then(function(response){
-            _this.myTableData = response.data;
-            console.log(this.myTableData);
-          }).catch(function(err){
-            console.log(err);
-          });
+          let checked = this.checkFunction(this.HeavyLoadParam);
+          if(!checked){
+            this.HeavyLoadParam.cellId = this.$route.params.cellId;
+            axios.get('/api/subBigTalkByCellId',{
+              params:
+              this.HeavyLoadParam
+            }).
+            then(function(response){
 
+            }).catch(function(err){
+              console.log(err);
+            });
+          }
       },
       addColorOrTip(e){
           if(e.getAttribute("fill")=="red"){
@@ -150,7 +244,7 @@
              e.setAttributeNS(null, "fill", "red");
           }
       },
-      myDblclick(e){
+      myDblclick(e,event){
 //        alert("123");
 //        let myE = e.getBoundingClientRect();
 //        let myTop = myE.top;
@@ -160,7 +254,7 @@
 //        elem.style.position = "absolute";//设置绝对定位（或者相对定位）
 //        elem.style.left = myTop+"px";//设置left数值
 //        elem.style.top =  myLeft+"px";//设置top数值
-        var oEvent=event;
+        var oEvent= event;
         var oDiv=document.createElement('div');
         oDiv.style.left=oEvent.clientX+'px';  // 指定创建的DIV在文档中距离左侧的位置
         oDiv.style.top=oEvent.clientY+'px';  // 指定创建的DIV在文档中距离顶部的位置
@@ -187,12 +281,12 @@
         myDocument.getSVGDocument().getElementById("cellId4").addEventListener("click",function() {
           _this.addColorOrTip(this);
         });
-        myDocument.getSVGDocument().getElementById("cellId4").addEventListener("dblclick",function() {
-          _this.myDblclick(this);
-        });
-        myDocument.getSVGDocument().getElementById("cellId13").addEventListener("dblclick",function() {
-          _this.myDblclick(this);
-        });
+//        myDocument.getSVGDocument().getElementById("cellId4").addEventListener("dblclick",function($event) {
+//          _this.myDblclick(this,$event);
+//        });
+//        myDocument.getSVGDocument().getElementById("cellId13").addEventListener("dblclick",function($event) {
+//          _this.myDblclick(this,$event);
+//        });
       },
       getWirelessInfoByParam(){
 //        this.addSvgClick();
@@ -229,11 +323,83 @@
             data: [5, 20, 36, 10, 10, 20]
           }]
         });
+      },
+      checkFunction(data){
+        if(data.type!=null){
+          if(data.type=="0"){
+            if(data.ulrbmaxrate.trim()==''){
+              alert("请输入上行RB利用率");
+              return false;
+            }
+            if(data.dlrbmaxrate.trim()==''){
+              alert("请输入下行RB利用率");
+              return false;
+            }
+            if(data.usercntsw.trim()=='1'){
+              if(data.usercnt.trim()==''){
+                alert("请输入用户数步长");
+                return false;
+              }
+            }
+          }else if(data.type=="1"){
+            if(data.ulcellmaxinterference.trim()==''){
+              alert("请输入最大上行干扰");
+              return false;
+            }
+            if(data.usercntsw.trim()=='1'){
+              if(data.usercnt.trim()==''){
+                alert("请输入用户数步长");
+                return false;
+              }
+            }
+            if(data.rsrpdeltasw.trim()=='1'){
+              if(data.rsrpdelta.trim()==''){
+                alert("请输入RSRP门限步长");
+                return false;
+              }
+            }
+            if(data.rspwrdeltasw.trim()=='1'){
+              if(data.rspwrdelta.trim()==''){
+                alert("请输入RS功率步长");
+                return false;
+              }
+            }
+          }else if(data.type=="2"){
+            if(data.maxcelluser.trim()==''){
+              alert("请输入最大用户数门限");
+              return false;
+            }
+            if(data.neibouruserrate.trim()==''){
+              alert("请输入与邻区用户数超出比例");
+              return false;
+            }
+            if(data.ulrbmaxrate.trim()==''){
+              alert("请输入上行RB利用率");
+              return false;
+            }
+            if(data.usercntsw.trim()=='1'){
+              if(data.usercnt.trim()==''){
+                alert("请输入用户数步长");
+                return false;
+              }
+            }
+            if(data.rspwrdeltasw.trim()=='1'){
+              if(data.rspwrdelta.trim()==''){
+                alert("请输入RS功率步长");
+                return false;
+              }
+            }
+//            this.HeavyLoadParam.cellId = this.$route.params.cellId;
+          }else{
+            alert("调整策略类型不匹配！");
+          }
+        }else{
+          alert("请选择调整策略！");
+        }
       }
     },
-
     created(){
-      this.getWirelessInfos();
+//      this.getWirelessInfos();
     },
     mounted(){
       setTimeout(() => {

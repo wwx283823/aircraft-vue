@@ -12,6 +12,12 @@
   border-radius: 4px;
   padding: 6px 12px 4px;
 }
+.bigTalkInput{
+  width: 65px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px 4px;
+}
 .bodyHtmlLabelR{
   writing-mode: tb;
   font-size: 25px;
@@ -41,4 +47,9 @@
 }
 .column-cell-class-name-test2 .v-table-body-cell{
   border-color: #2db7f5;
+}
+.bigTalkSelect{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 0px 8px;
 }
