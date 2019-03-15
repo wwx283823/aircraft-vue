@@ -9,6 +9,7 @@ import bigTalk from '@/views/BigTalk.vue'
 Vue.use(Router)
 
 export default new Router({
+  // base:'/myVueProject',
   routes: [
     {
       path: '/helloWorld',

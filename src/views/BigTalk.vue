@@ -80,27 +80,28 @@
             <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/3F.svg" type="image/svg+xml" />
           </div>
           <div class="col-xs-6 col-md-6 col-sm-12" style="padding-top: 1.5%;">
-            <ul class="nav nav-tabs">
-              <li class="active">
-                <a href="#home" data-toggle="tab">
+            <ul class="nav nav-tabs" style="border-bottom:0px">
+              <li class="active"><a href="#ios" data-toggle="tab" @click="getHistoryBigTalkByCellId(myCellId)">历史调整记录</a></li>
+              <li>
+                <a href="#home" data-toggle="tab" @click="getEchartsDataByCellId(myCellId)">
                   当前数据图表
                 </a>
               </li>
-              <li><a href="#ios" data-toggle="tab">历史调整记录</a></li>
+
             </ul>
             <div class="tab-content">
-              <div class="tab-pane fade in active" id="home">
+              <div class="tab-pane fade" id="home">
                 <div id="myChart" :style="{ height: '300px'}"></div>
                 <div id="myChart2" :style="{ height: '300px'}"></div>
               </div>
-              <div class="tab-pane fade" id="ios">
+              <div class="tab-pane fade  in active" id="ios">
                 <v-table
                   is-vertical-resize
                   style="width:100%"
                   is-horizontal-resize
                   :vertical-resize-offset='300'
                   :min-height='150'
-                  :max-height='400'
+                  :max-height='600'
                   :columns="columns"
                   :table-data="historyTableData"
                   row-hover-color="#eee"
@@ -144,8 +145,9 @@
     data() {
       return {
         historyData:[],
+        timer:'',
         historyTableData:[],
-        myCellIdList:['cellId1','cellId2','cellId13','cellId4'],
+        myCellIdList:['cellId1','cellId2','cellId3','cellId4'],
         options:[
           {
             name:'频点间基于用户数的快速负载均衡',
@@ -198,11 +200,11 @@
       }
     },
     methods:{
-      getEchartsDataByCellId(){
+      getEchartsDataByCellId(cellId){
         let _this = this;
         axios.get('/api/getEchartsDataByCellId',{
           params:
-            {'ulServiceCellId':13}
+            {'ulServiceCellId':cellId}
         }).
         then(function(response){
           let resultData = response.data;
@@ -210,6 +212,11 @@
         }).catch(function(err){
           console.log(err);
         });
+        setTimeout(function()  {
+          if(_this.$route.path.split("bigTalk").length>1){
+            _this.timer = _this.getEchartsDataByCellId(cellId)//娃娃消失
+          }
+        }, 4000);
       },
       historyDataFormat(historyData){
         for (let i=0;i<historyData.length;i++){
@@ -361,7 +368,8 @@
           myDocument.getSVGDocument().getElementById(cellId).addEventListener("click",function() {
             _this.addColorOrTip(this);
             _this.getHistoryBigTalkByCellId(cellId);
-            _this.getEchartsDataByCellId();
+            _this.getEchartsDataByCellId(cellId);
+
           });
         }
         // let sss = "cellId13";
@@ -452,7 +460,8 @@
       },
       drawLine(echartId,ehartsX,echartslegend,ehartsSeries,danwei,myTitle){
 
-        let myChart = this.$echarts.init(document.getElementById(echartId))
+        let myChart = this.$echarts.init(document.getElementById(echartId));
+        myChart.resize();
         // 绘制图表
         myChart.setOption({
           title: {
@@ -519,7 +528,7 @@
             type:'value',
             scale:true,
             splitLine:{
-              show:true
+              show:false
             },
             axisLine:{
               lineStyle:{
@@ -620,11 +629,12 @@
         if(this.myCellId!=null){
           this.redSvgDocuments(this.myCellId);
         }else{
-          this.redSvgDocuments("2");
+          this.redSvgDocuments();
         }
-        this.addSvgClick();
+        this.addSvgClick(this.myCellIdList[0]);
       }, 1000)
-      // this.drawLine();
+      this.getEchartsDataByCellId(this.myCellId);
+      this.getHistoryBigTalkByCellId(this.myCellId);
 
     },
   }

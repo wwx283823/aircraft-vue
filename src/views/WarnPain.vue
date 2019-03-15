@@ -73,6 +73,7 @@
   export default {
     data() {
       return {
+        myCellIdList:['cellId1','cellId2','cellId3','cellId4'],
         myParam:{
           userCnt:10,
           cellInterference:-101,
@@ -103,8 +104,8 @@
     methods:{
       redSvgDocuments(cellId){
         let myDocument = document.getElementById("svgId");
-        let cellIds = "cellId"+cellId;
-        let seleteDocument = myDocument.getSVGDocument().getElementById(cellIds);
+//        let cellIds = "cellId"+cellId;
+        let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
         if(seleteDocument!=null){
           seleteDocument.setAttributeNS(null, "fill", "red");
         }
@@ -112,8 +113,8 @@
       restSvgDocuments(){
         let myDocument = document.getElementById("svgId");
         for(let i = 0;i<this.cellIdLists.length;i++){
-          let id = this.cellIdLists[i];
-          let cellId = "cellId"+id;
+          let cellId = this.cellIdLists[i];
+//          let cellId = "cellId"+id;
 //          myDocument.getSVGDocument().getElementById(cellId).setAttributeNS(null, "fill", "#FEEEFF")
           let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
           if(seleteDocument!=null){
@@ -127,28 +128,25 @@
           axios.get('/api/getWirelessInfos').
           then(function(response){
             _this.myTableData = response.data;
-            console.log(this.myTableData);
           }).catch(function(err){
             console.log(err);
           });
+        setTimeout(function()  {
+          if(_this.$route.path.split("warn").length>1){
+            _this.getWirelessInfos()//娃娃消失
+          }
+        }, 4000);
 
       },
       addSvgClick(){
         let _this = this;
         let myDocument = document.getElementById("svgId");
-        let cellId = "cellId13";
-        myDocument.getSVGDocument().getElementById(cellId).addEventListener("click",function() {
-          _this.$router.push({path:'/bigTalk/'+cellId})
-        });
-        myDocument.getSVGDocument().getElementById("cellId2").addEventListener("click",function() {
-          _this.$router.push({path:'/bigTalk/'+"cellId2"})
-        });
-        myDocument.getSVGDocument().getElementById("cellId1").addEventListener("click",function() {
-          _this.$router.push({path:'/bigTalk/'+"cellId1"})
-        });
-        myDocument.getSVGDocument().getElementById("cellId4").addEventListener("click",function() {
-          _this.$router.push({path:'/bigTalk/'+"cellId4"})
-        });
+        for (let i = 0 ; i <_this.myCellIdList.length;i++){
+          let cellId = _this.myCellIdList[i];
+          myDocument.getSVGDocument().getElementById(cellId).addEventListener("click",function() {
+            _this.$router.push({path:'/bigTalk/'+cellId})
+          });
+        }
       },
       getWirelessInfoByParam(){
 //        this.addSvgClick();
