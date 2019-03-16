@@ -10,7 +10,12 @@
               </option>
             </select>
           </div>
-          <div v-show="HeavyLoadParam.type==0" class="col-xs-6 col-sm-6 col-md-6"　>
+          <div v-show="HeavyLoadParam.type==0" class="col-xs-7 col-sm-7 col-md-7"　>
+            <label class="bodyHtmlLabel">总开关</label>
+            <select class="bigTalkSelect" v-model="HeavyLoadParam.openClose">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
             <label class="bodyHtmlLabel">上行RB利用率</label>
             <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
             <label class="bodyHtmlLabel">下行RB利用率</label>
@@ -25,6 +30,11 @@
             <button @click="subBigTalkByCellId" type="button" class="btn btn-info" >调整</button>
           </div>
           <div v-show="HeavyLoadParam.type==1">
+            <label class="bodyHtmlLabel">总开关</label>
+            <select class="bigTalkSelect" v-model="HeavyLoadParam.openClose">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
             <label class="bodyHtmlLabel">最大上行干扰</label>
             <input  type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulcellmaxinterference" />
             <label class="bodyHtmlLabel">用户数开关</label>
@@ -32,13 +42,13 @@
               <option value="1">开</option>
               <option value="0">关</option>
             </select>
-            <label v-model="HeavyLoadParam.rsrpdeltasw" class="bodyHtmlLabel">RSRP门限开关</label>
-            <select class="bigTalkSelect">
+            <label  class="bodyHtmlLabel">RSRP门限开关</label>
+            <select v-model="HeavyLoadParam.rsrpdeltasw" class="bigTalkSelect">
               <option value="1">开</option>
               <option value="0">关</option>
             </select>
-            <label v-model="HeavyLoadParam.rspwrdeltasw" class="bodyHtmlLabel">RS功率开关</label>
-            <select class="bigTalkSelect">
+            <label class="bodyHtmlLabel">RS功率开关</label>
+            <select  v-model="HeavyLoadParam.rspwrdeltasw" class="bigTalkSelect">
               <option value="1">开</option>
               <option value="0">关</option>
             </select>
@@ -51,6 +61,11 @@
             <button @click="subBigTalkByCellId" type="button" class="btn btn-info" >调整</button>
           </div>
           <div v-show="HeavyLoadParam.type==2">
+            <label class="bodyHtmlLabel">总开关</label>
+            <select class="bigTalkSelect" v-model="HeavyLoadParam.openClose">
+              <option value="1">开</option>
+              <option value="0">关</option>
+            </select>
             <label class="bodyHtmlLabel">最大用户数门限</label>
             <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.maxcelluser" />
             <label class="bodyHtmlLabel">与邻区用户数超出比例</label>
@@ -77,24 +92,23 @@
         </div>
         <div class="row">
           <div class="col-xs-6 col-sm-12 col-md-6">
-            <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/3F.svg" type="image/svg+xml" />
+            <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/u5-2F.svg" type="image/svg+xml" />
           </div>
           <div class="col-xs-6 col-md-6 col-sm-12" style="padding-top: 1.5%;">
             <ul class="nav nav-tabs" style="border-bottom:0px">
-              <li class="active"><a href="#ios" data-toggle="tab" @click="getHistoryBigTalkByCellId(myCellId)">历史调整记录</a></li>
-              <li>
-                <a href="#home" data-toggle="tab" @click="getEchartsDataByCellId(myCellId)">
+              <li class="active">
+                <a href="#home"　 data-toggle="tab" @click="getEchartsDataByCellId(myCellId)">
                   当前数据图表
                 </a>
               </li>
-
+              <li ><a href="#ios" data-toggle="tab" @click="getHistoryBigTalkByCellId(myCellId)">历史调整记录</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane fade" id="home">
+              <div class="tab-pane fade  in active" id="home">
                 <div id="myChart" :style="{ height: '300px'}"></div>
                 <div id="myChart2" :style="{ height: '300px'}"></div>
               </div>
-              <div class="tab-pane fade  in active" id="ios">
+              <div class="tab-pane fade " id="ios">
                 <v-table
                   is-vertical-resize
                   style="width:100%"
@@ -147,7 +161,7 @@
         historyData:[],
         timer:'',
         historyTableData:[],
-        myCellIdList:['cellId1','cellId2','cellId3','cellId4'],
+        myCellIdList:['133636880','133636881','133636882'],
         options:[
           {
             name:'频点间基于用户数的快速负载均衡',
@@ -308,13 +322,19 @@
           let _this = this;
           let checked = this.checkFunction(this.HeavyLoadParam);
           if(!checked){
-            this.HeavyLoadParam.cellId = this.$route.params.cellId;
+            this.HeavyLoadParam.cellId = this.myCellId;
             axios.get('/api/subBigTalkByCellId',{
               params:
               this.HeavyLoadParam
             }).
             then(function(response){
-
+              let result = response.data;
+              if(result=="success"){
+                alert("调整成功！");
+                _this.getHistoryBigTalkByCellId(_this.myCellId);
+              }else {
+                alert("调整失败！");
+              }
             }).catch(function(err){
               console.log(err);
             });
@@ -366,6 +386,7 @@
         for (let i = 0 ; i <_this.myCellIdList.length;i++){
           let cellId = _this.myCellIdList[i];
           myDocument.getSVGDocument().getElementById(cellId).addEventListener("click",function() {
+            _this.myCellId = cellId;
             _this.addColorOrTip(this);
             _this.getHistoryBigTalkByCellId(cellId);
             _this.getEchartsDataByCellId(cellId);
@@ -631,7 +652,7 @@
         }else{
           this.redSvgDocuments();
         }
-        this.addSvgClick(this.myCellIdList[0]);
+        this.addSvgClick();
       }, 1000)
       this.getEchartsDataByCellId(this.myCellId);
       this.getHistoryBigTalkByCellId(this.myCellId);

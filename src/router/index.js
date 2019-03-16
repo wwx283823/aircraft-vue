@@ -6,6 +6,7 @@ import View1 from '@/views/View1.vue'
 import View2 from '@/views/View2.vue'
 import warn from '@/views/WarnPain.vue'
 import bigTalk from '@/views/BigTalk.vue'
+import paramConfig from '@/views/ParamConfig.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +35,10 @@ export default new Router({
     {
       path: '/bigTalk/:cellId',
       component: bigTalk
+    },
+    {
+      path: '/paramConfig',
+      component: paramConfig
     }
     //  {
     //   path: '/menu',

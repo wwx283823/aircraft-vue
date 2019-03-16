@@ -13,18 +13,18 @@
       </div>
       <div class="row" style="    margin-top: 15px;">
         <router-link class="routerClass" to="/warn">痛点指示告警 |</router-link>
-        <router-link class="routerClass" to="/bigTalk/cellId2">大话务保障 |</router-link>
+        <router-link class="routerClass" to="/bigTalk/133636870">大话务保障 |</router-link>
         <router-link class="routerClass" to="/view3">AI参数优化 |</router-link>
-        <router-link class="routerClass" to="/view3">智能分析系统 |</router-link>
-        <router-link class="routerClass" to="/view3">集中分析 |</router-link>
-        <router-link class="routerClass" to="/view3">集中参数 |</router-link>
-        <router-link class="routerClass" to="/view3">集中投诉 |</router-link>
-        <router-link class="routerClass" to="/view3">空分管控 |</router-link>
-        <router-link class="routerClass" to="/view3">实时监控 |</router-link>
-        <router-link class="routerClass" to="/view3">专项分析 |</router-link>
-        <router-link class="routerClass" to="/view3">通用警务 |</router-link>
-        <router-link class="routerClass" to="/view3">功能管理统计 |</router-link>
-        <router-link class="routerClass" to="/view3">系统管理</router-link>
+        <router-link class="routerClass myRouter" to="/view3">智能分析系统 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">集中分析 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">集中参数 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">集中投诉 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">空分管控 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">实时监控 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">专项分析 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">通用警务 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">功能管理统计 |</router-link>
+        <router-link class="routerClass myRouter" to="/view3">系统管理</router-link>
         <router-view/>
       </div>
     </div>
@@ -59,7 +59,8 @@
   export default {
     data() {
       return {
-        nowTime:new Date()
+        nowTime:new Date(),
+        myCellIdList:'133636880'
       }
     },
     methods: {

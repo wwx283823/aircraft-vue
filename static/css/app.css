@@ -53,3 +53,7 @@
   border-radius: 4px;
   padding: 5px 0px 8px;
 }
+.myRouter{
+  pointer-events: none;
+  opacity: 0.2;
+}

@@ -1,6 +1,9 @@
 <template>
 　　<div id="bodyHtml">
       <div class="container-fluid">
+
+        <router-link class="routerClass" to="/paramConfig" style="font-size: 18px;color: aquamarine;">参数配置</router-link>
+
         <div class="row" style="margin-top: 15px;">
           <div class="col-xs-2 col-sm-2 col-md-2">
             <label class="bodyHtmlLabel">最大用户数</label>
@@ -24,7 +27,7 @@
         </div>
         <div class="row">
           <div class="col-xs-6 col-sm-12 col-md-6">
-            <embed id="svgId" style="width: 100%;height: 100%" src="../../static/images/3F.svg" type="image/svg+xml" />
+            <embed id="svgId" style="width: 100%;height: 100%" src="../../static/images/u5-2F.svg" type="image/svg+xml" />
           </div>
           <div class="col-xs-6 col-md-6 col-sm-12" style="padding-top: 1.5%;">
             <v-table
@@ -73,7 +76,7 @@
   export default {
     data() {
       return {
-        myCellIdList:['cellId1','cellId2','cellId3','cellId4'],
+        myCellIdList:['133636880','133636881','133636882'],
         myParam:{
           userCnt:10,
           cellInterference:-101,
@@ -118,7 +121,7 @@
 //          myDocument.getSVGDocument().getElementById(cellId).setAttributeNS(null, "fill", "#FEEEFF")
           let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
           if(seleteDocument!=null){
-            seleteDocument.setAttributeNS(null, "fill", "#FEEEFF");
+            seleteDocument.setAttributeNS(null, "fill", "#4CB9FF");
           }
         }
         this.cellIdLists = [];
@@ -134,6 +137,7 @@
         setTimeout(function()  {
           if(_this.$route.path.split("warn").length>1){
             _this.getWirelessInfos()//娃娃消失
+            _this.getWirelessInfoByParam();
           }
         }, 4000);
 
@@ -174,6 +178,7 @@
     mounted(){
       setTimeout(() => {
         this.addSvgClick();
+        this.getWirelessInfoByParam();
       }, 1000)
 
     },
