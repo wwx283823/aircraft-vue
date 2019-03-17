@@ -13,7 +13,7 @@
       </div>
       <div class="row" style="    margin-top: 15px;">
         <router-link class="routerClass" to="/warn">痛点指示告警 |</router-link>
-        <router-link class="routerClass" to="/bigTalk/133636870">大话务保障 |</router-link>
+        <router-link class="routerClass" to="/bigTalk/16">大话务保障 |</router-link>
         <router-link class="routerClass" to="/view3">AI参数优化 |</router-link>
         <router-link class="routerClass myRouter" to="/view3">智能分析系统 |</router-link>
         <router-link class="routerClass myRouter" to="/view3">集中分析 |</router-link>

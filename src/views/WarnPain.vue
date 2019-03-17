@@ -1,9 +1,11 @@
 <template>
 　　<div id="bodyHtml">
       <div class="container-fluid">
-
-        <router-link class="routerClass" to="/paramConfig" style="font-size: 18px;color: aquamarine;">参数配置</router-link>
-
+        <div class="row">
+          <div class="col-xs-1 col-sm-1 col-md-1">
+            <router-link class="routerClass" to="/paramConfig" style="font-size: 18px;color: aquamarine;">参数配置</router-link>
+          </div>
+        </div>
         <div class="row" style="margin-top: 15px;">
           <div class="col-xs-2 col-sm-2 col-md-2">
             <label class="bodyHtmlLabel">最大用户数</label>
@@ -76,7 +78,7 @@
   export default {
     data() {
       return {
-        myCellIdList:['133636880','133636881','133636882'],
+        myCellIdList:['16','17','18'],
         myParam:{
           userCnt:10,
           cellInterference:-101,
@@ -87,19 +89,19 @@
         nowTime:new Date(),
         myTableData:[],
         columns: [
-          {field: 'ulServiceCellId', title: '小区ID', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'uleNodebId', title: 'NodebId', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulServiceCellId', title: '小区Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'uleNodebId', title: '基站Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'usMaxUserNum', title: '最大用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ulCellInterference', title: '小区干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucULRbRate', title: '上行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucDLRbRate', title: '下行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucULAvgMcs', title: '上行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucDLAvgMcs', title: '下行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulActiveUserNum', title: '活动用户数(人/s)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulActiveUserNum', title: '激活用户数(人/s)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ulULActiveUserAvgRate', title: '上行平均感知速率(kbps)', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ulULCellTraffic', title: '上行小区流量(kbps)', width: 35, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'usAvgUserNum', title: '平均用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usCpuRate', title: 'CPU利用率', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
+          {field: 'usCpuRate', title: 'CPU利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
 
         ]
       }

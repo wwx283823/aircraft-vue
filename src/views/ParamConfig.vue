@@ -2,99 +2,87 @@
 　　<div id="paramConfig">
       <div class="container-fluid">
         <div class="row" style="margin-top: 15px;">
-          <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-              <label class="bodyHtmlLabel">频点间基于用户数的快速负载均衡:</label>
-              <select v-model="HeavyLoadParam.type" class="bigTalkSelect">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
+            <div class="col-xs-5 col-sm-5 col-md-5 paramDiv">
+              <div class="col-xs-12 col-sm-12 col-md-12" style="text-align: right">
+                <label class="paramLabel">频点间基于用户数的快速负载均衡:</label>
+                <select v-model="HeavyLoadParam.type" class="bigTalkSelect">
+                  <option value="1">开</option>
+                  <option value="0">关</option>
+                </select>
+
+                <label class="paramLabel">用户数开关</label>
+                <select  class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw">
+                  <option value="1">开</option>
+                  <option value="0">关</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12" style="text-align:right;">
+                <label class="paramLabel">基于干扰的快速负载均衡:</label>
+                <select v-model="HeavyLoadParam.type1" class="bigTalkSelect">
+                  <option value="1">开</option>
+                  <option value="0">关</option>
+                </select>
+                <label  class="paramLabel">RSRP门限开关</label>
+                <select v-model="HeavyLoadParam.rsrpdeltasw" class="bigTalkSelect">
+                  <option value="1">开</option>
+                  <option value="0">关</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 " style="text-align:right;">
+                <label class="paramLabel">基于用户数的快速调整:</label>
+                <select v-model="HeavyLoadParam.type2" class="bigTalkSelect">
+                  <option value="1">开</option>
+                  <option value="0">关</option>
+                </select>
+                <label class="paramLabel">RS功率开关</label>
+                <select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltasw">
+                  <option value="1">开</option>
+                  <option value="0">关</option>
+                </select>
+              </div>
             </div>
-            <div class="col-xs-7 col-sm-7 col-md-7"　>
-              <label class="bodyHtmlLabel">上行RB利用率</label>
-              <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
-              <label class="bodyHtmlLabel">下行RB利用率</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.dlrbmaxrate" />
-              <!--<label class="bodyHtmlLabel">用户数开关</label>-->
-              <select v-show="false" class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-              <label class="bodyHtmlLabel">用户数步长</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
+            <div class="col-xs-5 col-sm-5 col-md-5 paramDiv">
+              <div class="col-xs-12 col-sm-12 col-md-12" style="text-align: left;">
+                <label class="paramLabel">上行RB利用率</label>
+                <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
+                <label class="paramLabel">下行RB利用率</label>
+                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.dlrbmaxrate" />
+                <label class="paramLabel">用户数步长</label>
+                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12"style="text-align:left">
+                <label class="paramLabel">最大上行干扰</label>
+                <input  type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulcellmaxinterference" />
+                <label class="paramLabel">RSRP门限步长</label>
+                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rsrpdelta" />
+                <label class="paramLabel">RS功率步长</label>
+                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdelta" />
+              </div>
+              <div  class="col-xs-12 col-sm-12 col-md-12" style="text-align: left">
+                <label class="paramLabel">最大用户数门限</label>
+                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.maxcelluser" />
+                <label class="paramLabel">与邻区用户数超出比例</label>
+                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.neibouruserrate" />
+                <!--<label class="bodyHtmlLabel">上行RB利用率</label>-->
+                <!--<input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />-->
+                <!--<label class="bodyHtmlLabel">用户数开关</label>-->
+                <!--<select class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw" >-->
+                <!--<option value="1">开</option>-->
+                <!--<option value="0">关</option>-->
+                <!--</select>-->
+                <!--<label class="bodyHtmlLabel">RS功率开关</label>-->
+                <!--<select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltasw">-->
+                <!--<option value="1">开</option>-->
+                <!--<option value="0">关</option>-->
+                <!--</select>-->
+                <!--<label class="bodyHtmlLabel">用户数步长</label>-->
+                <!--<input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />-->
+
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-              <label class="bodyHtmlLabel">基于干扰的快速负载均衡:</label>
-              <select v-model="HeavyLoadParam.type" class="bigTalkSelect">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
+            <div class="col-xs-12 col-sm-12 col-md-12 paramButton">
+              <button @click="subBigTalkByCellId" type="button" class="btn btn-info paramMyButton" >调整</button>
             </div>
-            <div class="col-xs-9 col-sm-12 col-md-9">
-              <label class="bodyHtmlLabel">最大上行干扰</label>
-              <input  type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulcellmaxinterference" />
-              <label class="bodyHtmlLabel">用户数开关</label>
-              <select  v-model="HeavyLoadParam.usercntsw" class="bigTalkSelect">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-              <label  class="bodyHtmlLabel">RSRP门限开关</label>
-              <select v-model="HeavyLoadParam.rsrpdeltasw" class="bigTalkSelect">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-              <label class="bodyHtmlLabel">RS功率开关</label>
-              <select  v-model="HeavyLoadParam.rspwrdeltasw" class="bigTalkSelect">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-              <label class="bodyHtmlLabel" >用户数步长</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
-              <label class="bodyHtmlLabel">RSRP门限步长</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rsrpdelta" />
-              <label class="bodyHtmlLabel">RS功率步长</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdelta" />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-              <label class="bodyHtmlLabel">基于用户数的快速调整:</label>
-              <select v-model="HeavyLoadParam.type" class="bigTalkSelect">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-            </div>
-            <div  class="col-xs-9 col-sm-12 col-md-9">
-              <label class="bodyHtmlLabel">总开关</label>
-              <select class="bigTalkSelect" v-model="HeavyLoadParam.openClose">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-              <label class="bodyHtmlLabel">最大用户数门限</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.maxcelluser" />
-              <label class="bodyHtmlLabel">与邻区用户数超出比例</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.neibouruserrate" />
-              <label class="bodyHtmlLabel">上行RB利用率</label>
-              <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
-              <label class="bodyHtmlLabel">用户数开关</label>
-              <select class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw" >
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-              <label class="bodyHtmlLabel">RS功率开关</label>
-              <select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltasw">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-              <label class="bodyHtmlLabel">用户数步长</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
-              <label class="bodyHtmlLabel">RS功率步长</label>
-              <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdelta" />
-            </div>
-          </div>
-          <button @click="subBigTalkByCellId" type="button" class="btn btn-info" >调整</button>
         </div>
         <div class="row">
           <div class="col-xs-12 col-md-12 col-sm-12" style="padding-top: 1.5%;">
@@ -103,24 +91,30 @@
                 <h4 style="    color: aqua;">历史调整记录</h4>
               </div>
             </div>
-            <v-table
-              is-vertical-resize
-              style="width:100%"
-              is-horizontal-resize
-              :vertical-resize-offset='300'
-              :min-height='150'
-              :max-height='600'
-              :columns="columns"
-              :table-data="historyTableData"
-              row-hover-color="#eee"
-              row-click-color="#edf7ff"
-            ></v-table>
+            <div class="row">
+              <div class="col-xs-12 col-md-12 col-sm-12 historyDiv" >
+                <v-table
+                  is-vertical-resize
+                  style="width:100%;background-color: transparent;color: rgb(191, 119, 33);border: none;argin-bottom: 25px; margin-top: 25px;"
+                  is-horizontal-resize
+                  :vertical-resize-offset='100'
+                  :min-height='150'
+                  :max-height='600'
+                  :columns="columns"
+                  :table-data="historyTableData"
+                  :column-cell-class-name="columnCellClass2"
+                  row-hover-color="#eee"
+                  row-click-color="#edf7ff"
+                ></v-table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 　　</div>
 </template>
-<style scoped>
+<style >
+
   @import '../../static/css/app.css';
 </style>
 <script type="text/javascript">
@@ -128,6 +122,19 @@
   export default {
     data() {
       return {
+        tableData: [
+          {"name":"赵伟","tel":"156*****1987","hobby":"钢琴、书法、唱歌","address":"上海市黄浦区金陵东路569号17楼"},
+          {"name":"李伟","tel":"182*****1538","hobby":"钢琴、书法、唱歌","address":"上海市奉贤区南桥镇立新路12号2楼"},
+          {"name":"孙伟","tel":"161*****0097","hobby":"钢琴、书法、唱歌","address":"上海市崇明县城桥镇八一路739号"},
+          {"name":"周伟","tel":"197*****1123","hobby":"钢琴、书法、唱歌","address":"上海市青浦区青浦镇章浜路24号"},
+          {"name":"吴伟","tel":"183*****6678","hobby":"钢琴、书法、唱歌","address":"上海市松江区乐都西路867-871号"}
+        ],
+        columnsData: [
+          {field: 'name', title:'姓名', width: 80, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test',isResize:true},
+          {field: 'tel', title: '手机号码', width: 150, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test',isResize:true},
+          {field: 'hobby', title: '爱好', width: 150, titleAlign: 'center',columnAlign:'center',titleCellClassName:'title-cell-class-name-test',isResize:true},
+          {field: 'address', title: '地址', width: 280, titleAlign: 'center',columnAlign:'left',titleCellClassName:'title-cell-class-name-test',isResize:true}
+        ],
         historyData:[],
         timer:'',
         historyTableData:[],
@@ -146,7 +153,10 @@
           }
           ],
         HeavyLoadParam:{
+          _id:'',
           type:'0',
+          type1:'0',
+          type2:'0',
           effecttype:'0',
           ulcellmaxinterference:'0',
           ulrbmaxrate:'0',
@@ -166,23 +176,36 @@
         myShow:false,
         cellIdLists:[],
         columns: [
-          {field: 'type', title: '调整策略', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulrbmaxrate', title: '上行RB利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'dlrbmaxrate', title: '下行RB利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulcellmaxinterference', title: '最大上行干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'maxcelluser', title: '最大用户数门限', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'neibouruserrate', title: '与邻区用户数超出比例 (%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usercntsw', title: '用户数开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rsrpdeltasw', title: 'RSRP门限开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rspwrdeltasw', title: 'RS功率开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usercnt', title: '用户数步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rsrpdelta', title: 'RSRP门限步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rspwrdelta', title: 'RS功率步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
+          {field: 'type', title: '调整策略', width: 30, titleAlign: 'center',titleCellClassName:'title-cell-class-name-test', columnAlign: 'center',isResize:true},
+          {field: 'timeStamp', title: '上行RB利用率(%)', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulSvcCellId', title: '下行RB利用率(%)', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulDstCellId', title: '最大上行干扰(dBm)',titleCellClassName:'title-cell-class-name-test', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usKickUserCnt', title: '最大用户数门限', width: 30,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'adjustType', title: '与邻区用户数超出比例 (%)',titleCellClassName:'title-cell-class-name-test', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'rspwrDelta', title: '用户数开关', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'rsrpDelta', title: 'RSRP门限开关', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true}
 
         ]
       }
     },
     methods:{
+      getParam(){
+        let _this = this;
+        axios.get('/api/getParam').
+        then(function(response){
+          let resultData = response.data;
+          if(resultData.length>0){
+            _this.HeavyLoadParam = resultData[0];
+          }
+        }).catch(function(err){
+          console.log(err);
+        });
+      },
+      columnCellClass2(rowIndex,columnName,rowData){
+
+          return 'column-cell-class-name-test';
+
+      },
       historyDataFormat(historyData){
         for (let i=0;i<historyData.length;i++){
           if(historyData[i].type==0){
@@ -250,35 +273,51 @@
       },
       subBigTalkByCellId(){
           let _this = this;
-          let checked = this.checkFunction(this.HeavyLoadParam);
-          if(!checked){
-            this.HeavyLoadParam.cellId = this.myCellId;
-            axios.get('/api/subBigTalkByCellId',{
+          // let checked = this.checkFunction(this.HeavyLoadParam);
+          if(!(this.HeavyLoadParam.type=="0"&&this.HeavyLoadParam.type1=="0"&&this.HeavyLoadParam.type2=="0")){
+            // this.HeavyLoadParam.cellId = this.myCellId;
+            axios.get('/api/newSubBigTalkByCellId',{
               params:
               this.HeavyLoadParam
             }).
             then(function(response){
-              let result = response.data;
-              if(result=="success"){
-                alert("调整成功！");
-                _this.getHistoryBigTalkByCellId(_this.myCellId);
-              }else {
-                alert("调整失败！");
+              let resultData = response.data;
+              let alertStr = null;
+              if(resultData["result"]=="success"){
+                alertStr = "频点间基于用户数的快速负载均衡调整成功!";
+              }else if(resultData["result"]=="failed"){
+                alertStr = ("频点间基于用户数的快速负载均衡调整失败！");
               }
+              if(resultData["result1"]=="success"){
+                alertStr = alertStr +"基于干扰的快速负载均衡调整成功!";
+              }else if(resultData["result1"]=="failed"){
+                alertStr = alertStr+"基于干扰的快速负载均衡调整失败！";
+              }
+              if(resultData["result2"]=="success"){
+                alertStr = alertStr +"基于用户数的快速调整调整成功!";
+              }else if(resultData["result2"]=="failed"){
+                alertStr = alertStr+"基于用户数的快速调整调整失败！";
+              }
+              alert(alertStr);
+              _this.getHistoryBigTalkByCellId(_this.myCellId);
             }).catch(function(err){
               console.log(err);
             });
+          }else{
+            alert("您未打开调整策略！")
           }
       },
-      getHistoryBigTalkByCellId(cellId){
+      getNewHistory(){
         let _this = this;
-        axios.get('/api/getHistoryBigTalkByCellId',{
-          params:
-            {'cellId':cellId}
-        }).
+        axios.get('/api/getNewHistory'
+        //   ,{
+        //   params:
+        //     {'cellId':"cellId2"}
+        // }
+        ).
         then(function(response){
             let resultData = response.data;
-            _this.historyTableData = _this.historyDataFormat(resultData);
+            _this.historyTableData = resultData;
         }).catch(function(err){
           console.log(err);
         });
@@ -362,7 +401,8 @@
 //      this.getWirelessInfos();
     },
     mounted(){
-      this.getHistoryBigTalkByCellId(this.myCellId);
+      this.getNewHistory();
+      this.getParam();
     },
   }
 

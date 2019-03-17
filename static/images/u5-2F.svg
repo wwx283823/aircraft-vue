@@ -5,7 +5,7 @@
 	 width="600px" height="480px" viewBox="0 0 600 480" enable-background="new 0 0 600 480" xml:space="preserve">
 <image overflow="visible" width="394" height="201" xlink:href="CB1C694E.png"  transform="matrix(1.5231 0 0 1.5231 0 72.8552)">
 </image>
-<ellipse id="133636870" opacity="0.8" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="126.645" cy="170.5" rx="126.645" ry="79.5"/>
-<ellipse id="133636871" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="471.25" cy="170.5" rx="128.855" ry="79.5"/>
-<ellipse id="133636872" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="300.052" cy="299" rx="126.645" ry="80"/>
+<ellipse id="16" opacity="0.8" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="126.645" cy="170.5" rx="126.645" ry="79.5"/>
+<ellipse id="17" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="471.25" cy="170.5" rx="128.855" ry="79.5"/>
+<ellipse id="18" fill="#4CB9FF" stroke="#FFFFFF" stroke-miterlimit="10" cx="300.052" cy="299" rx="126.645" ry="80"/>
 </svg>

@@ -35,19 +35,6 @@
   background-color: red;
   color:#fff;
 }
-.column-cell-class-name-test{
-  background-color: #187;
-}
-.column-cell-class-name-test .v-table-body-cell{
-  border-color: #187;
-}
-.column-cell-class-name-test2{
-  background-color: #2db7f5;
-  font-weight: bold;
-}
-.column-cell-class-name-test2 .v-table-body-cell{
-  border-color: #2db7f5;
-}
 .bigTalkSelect{
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -57,3 +44,49 @@
   pointer-events: none;
   opacity: 0.2;
 }
+.paramLabel{
+  color: aqua;
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.paramDiv{
+  border-top: 3px solid #fdb425;
+  border-left: 3px solid #fdb425;
+  margin-left: 5%;
+  border-right: 3px solid #fdb425;
+}
+.paramButton{
+  margin-left: 5%;
+  /* margin-right: -107%; */
+  width: 88.35%;
+  border: 3px solid #fdb425;
+}
+.paramMyButton{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.column-cell-class-name-test{
+  background-color: #187;
+  color:black;
+  font-size: 17px;
+  /*background-color: transparent;*/
+}
+.v-table-title-cell{
+  border-color: rgb(46, 156, 193);
+}
+.v-table-header-row{
+  background-color: aqua;
+}
+.column-cell-class-name-test .v-table-body-cell {
+  /*background-color: transparent !important;*/
+}
+.column-cell-class-name-test .v-table-title-cell .vertical-border {
+
+}
+.historyDiv{
+ margin-left: 4.4%; width: 89.35%; border: 3px solid rgb(253, 180, 37);padding-bottom: 25px;
+}
+
+
