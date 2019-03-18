@@ -98,8 +98,8 @@
           {field: 'ucULAvgMcs', title: '上行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucDLAvgMcs', title: '下行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ulActiveUserNum', title: '激活用户数(人/s)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulULActiveUserAvgRate', title: '上行平均感知速率(kbps)', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulULCellTraffic', title: '上行小区流量(kbps)', width: 35, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULActiveUserAvgRate', title: '上行平均感知速率(mbps)', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULCellTraffic', title: '上行小区流量(mbps)', width: 35, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'usAvgUserNum', title: '平均用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'usCpuRate', title: 'CPU利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
 

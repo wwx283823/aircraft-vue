@@ -95,35 +95,50 @@
             <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/u5-2F.svg" type="image/svg+xml" />
           </div>
           <div class="col-xs-6 col-md-6 col-sm-12" style="">
-            <!--<ul class="nav nav-tabs" style="border-bottom:0px">-->
-              <!--<li class="active">-->
-                <!--<a href="#home"　 data-toggle="tab" @click="getEchartsDataByCellId(myCellId)">-->
-                  <!--当前数据图表-->
-                <!--</a>-->
-              <!--</li>-->
-              <!--<li ><a href="#ios" data-toggle="tab" @click="getHistoryBigTalkByCellId(myCellId)">历史调整记录</a></li>-->
-            <!--</ul>-->
-            <!--<div class="tab-content">-->
-              <!--<div class="tab-pane fade  in active" id="home">-->
+            <ul class="nav nav-pills" style="border-bottom:0px">
+              <li class="active">
+                <a href="#home"　 data-toggle="tab" @click="getEchartsDataByCellId(myCellId)">
+                  当前数据图表
+                </a>
+              </li>
+              <li ><a href="#now" data-toggle="tab" @click="getWirelessInfoByCellId">当前数据表格</a></li>
+              <li ><a href="#ios" data-toggle="tab" @click="getHistoryBigTalkByCellId(myCellId)">历史调整记录</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade  in active" id="home">
                 <div id="myChart3" :style="{ height: '250px'}"></div>
                 <div id="myChart" :style="{ height: '250px'}"></div>
                 <div id="myChart2" :style="{ height: '250px'}"></div>
-              <!--</div>-->
-              <!--<div class="tab-pane fade " id="ios">-->
-                <!--<v-table-->
-                  <!--is-vertical-resize-->
-                  <!--style="width:100%"-->
-                  <!--is-horizontal-resize-->
-                  <!--:vertical-resize-offset='300'-->
-                  <!--:min-height='150'-->
-                  <!--:max-height='600'-->
-                  <!--:columns="columns"-->
-                  <!--:table-data="historyTableData"-->
-                  <!--row-hover-color="#eee"-->
-                  <!--row-click-color="#edf7ff"-->
-                <!--&gt;</v-table>-->
-              <!--</div>-->
-            <!--</div>-->
+              </div>
+              <div class="tab-pane fade " id="now">
+                <v-table
+                  is-vertical-resize
+                  style="width:100%"
+                  is-horizontal-resize
+                  :vertical-resize-offset='300'
+                  :min-height='150'
+                  :max-height='600'
+                  :columns="cellColumns"
+                  :table-data="cellData"
+                  row-hover-color="#eee"
+                  row-click-color="#edf7ff"
+                ></v-table>
+              </div>
+              <div class="tab-pane fade " id="ios">
+                <v-table
+                  is-vertical-resize
+                  style="width:100%"
+                  is-horizontal-resize
+                  :vertical-resize-offset='300'
+                  :min-height='150'
+                  :max-height='600'
+                  :columns="columns"
+                  :table-data="historyTableData"
+                  row-hover-color="#eee"
+                  row-click-color="#edf7ff"
+                ></v-table>
+              </div>
+            </div>
           </div>
           <!--<div class="col-xs-1 col-md-1 col-sm-1">-->
             <!--<div class="row">-->
@@ -198,20 +213,29 @@
         myCellId:this.$route.params.cellId,
         myShow:false,
         cellIdLists:[],
-        columns: [
-          {field: 'type', title: '调整策略', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulrbmaxrate', title: '上行RB利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'dlrbmaxrate', title: '下行RB利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulcellmaxinterference', title: '最大上行干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'maxcelluser', title: '最大用户数门限', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'neibouruserrate', title: '与邻区用户数超出比例 (%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usercntsw', title: '用户数开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rsrpdeltasw', title: 'RSRP门限开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rspwrdeltasw', title: 'RS功率开关', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usercnt', title: '用户数步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rsrpdelta', title: 'RSRP门限步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'rspwrdelta', title: 'RS功率步长', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
+        cellColumns: [
+          {field: 'ulServiceCellId', title: '小区Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'uleNodebId', title: '基站Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usMaxUserNum', title: '最大用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulCellInterference', title: '小区干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucULRbRate', title: '上行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucDLRbRate', title: '下行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucULAvgMcs', title: '上行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucDLAvgMcs', title: '下行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulActiveUserNum', title: '激活用户数(人/s)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULActiveUserAvgRate', title: '上行平均感知速率(mbps)', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULCellTraffic', title: '上行小区流量(mbps)', width: 35, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usAvgUserNum', title: '平均用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usCpuRate', title: 'CPU利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
 
+        ],
+        cellData:[],
+        columns: [
+          {field: 'bigType', title: '调整策略', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'type', title: '调整方式', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulSvcCellId', title: '小区Id', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'showValue', title: '调整值', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'showTime', title: '调整时间', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true}
         ],
         myChartsOption1:{},
         myChartsOption2:{},
@@ -457,18 +481,51 @@
         this.cellIdLists.push(e.getAttribute("id"));
          e.setAttributeNS(null, "fill", "red");
       },
+      historyDataFor(resultData){
+        for(let i = 0 ;i<resultData.length;i++){
+          let result = resultData[i];
+          let times = result.timeStamp;
+          let type =  result.adjustType;
+          let showValues = null;
+          if(type==1){
+            showValues = result.usKickUserCnt;
+          }else if(type==4){
+            showValues = result.rspwrDelta;
+          }else if(type==2){
+            showValues = result.rsrpDelta;
+          }
+          let d = new Date(times);    //根据时间戳生成的时间对象
+          let date = (d.getFullYear()) + "-" +
+            (d.getMonth() + 1) + "-" +
+            (d.getDate()) + " " +
+            (d.getHours()) + ":" +
+            (d.getMinutes()) + ":" +
+            (d.getSeconds());
+          result.showTime = date;
+          result.showValue = showValues;
+        }
+        return resultData;
+      },
       getHistoryBigTalkByCellId(cellId){
+        if(this.timer!=null){
+          clearTimeout(this.timer);
+        }
         let _this = this;
         axios.get('/api/getHistoryBigTalkByCellId',{
           params:
-            {'cellId':cellId}
+            {'svcCellId':cellId}
         }).
         then(function(response){
             let resultData = response.data;
-            _this.historyTableData = _this.historyDataFormat(resultData);
+            _this.historyTableData = _this.historyDataFor(resultData);
         }).catch(function(err){
           console.log(err);
         });
+        _this.timer = setTimeout(function()  {
+          if(_this.$route.path.split("bigTalk").length>1){
+            _this.getHistoryBigTalkByCellId(_this.myCellId);//娃娃消失
+          }
+        }, 4000);
 
       },
       myDblclick(e,event){
@@ -502,6 +559,7 @@
             _this.addColorOrTip(this);
             // _this.getHistoryBigTalkByCellId(cellId);
             _this.getEchartsDataByCellId(cellId);
+            _this.getWirelessInfoByCellId();
 
           });
         }
@@ -812,8 +870,31 @@
         }else{
           alert("请选择调整策略！");
         }
+      },
+      getWirelessInfoByCellId(){
+        if(this.timer!=null){
+          clearTimeout(this.timer);
+        }
+        let _this = this;
+        axios.get('/api/getWirelessInfoByCellId',{
+          params:{cellId:this.myCellId}
+        }).
+        then(response =>{
+          let dataList = response.data;
+          this.cellData = dataList;
+        }).catch(function(err){
+          console.log(err);
+        });
+
+        _this.timer = setTimeout(function()  {
+          if(_this.$route.path.split("bigTalk").length>1){
+            _this.getWirelessInfoByCellId()//娃娃消失
+          }
+        }, 4000);
+
       }
     },
+
     created(){
 //      this.getWirelessInfos();
     },
@@ -828,6 +909,7 @@
       }, 1000)
       this.getEchartsDataByCellId(this.myCellId);
       this.getHistoryBigTalkByCellId(this.myCellId);
+      this.getWirelessInfoByCellId();
 
     },
   }

@@ -56,11 +56,13 @@
   @import '../../static/css/app.css';
 </style>
 <script type="text/javascript">
+  import axios from 'axios'
   export default {
     data() {
       return {
         nowTime:new Date(),
-        myCellIdList:'133636880'
+        myCellIdList:'133636880',
+        myTimes:''
       }
     },
     methods: {
@@ -79,15 +81,31 @@
       nowTimes(){
         this.timeFormate(new Date());
         setTimeout(this.nowTimes,1000);
+      },
+      getHistoryBySva(){
+        if(this.myTimes!=null){
+          clearTimeout(this.myTimes);
+        }
+        let _this = this;
+        axios.get('/api/getHistoryBySva').
+        then(function(response){
+          let resultData = response.data;
+          console.log(resultData);
+        }).catch(function(err){
+          console.log(err);
+        });
+        _this.myTimes = setTimeout(function()  {
+            _this.getHistoryBySva()//娃娃消失
+        }, 10000);
       }
     },
     //创建完成时调用
     created() {
       this.nowTimes();
     },
-//    mounted(){
-//      this.timeFormate();
-//    }
+   mounted(){
+     this.getHistoryBySva();
+   }
   }
 </script>
 
