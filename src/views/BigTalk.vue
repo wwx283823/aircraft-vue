@@ -95,7 +95,7 @@
             <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/u5-b.svg" type="image/svg+xml" />
           </div>
           <div class="col-xs-6 col-md-6 col-sm-12" style="margin-top: 1.5%;">
-            <ul class="nav nav-pills" style="border-bottom:0px">
+            <ul class="nav nav-pills" id="tagId" style="border-bottom:0px">
               <li class="active">
                 <a href="#home"　 data-toggle="tab" @click="getEchartsDataByCellId(myCellId)">
                   当前数据图表
@@ -175,6 +175,7 @@
     data() {
       return {
         historyData:[],
+        selectCharts:'',
         myParamTime:"",
         timer:'',
         timer2:'',
@@ -246,6 +247,7 @@
     },
     methods:{
       getEchartsDataByCellId(cellId){
+        this.selectCharts = 'e';
         if(this.timer!=null){
           clearTimeout(this.timer);
         }
@@ -519,6 +521,7 @@
         return resultData;
       },
       getHistoryBigTalkByCellId(cellId){
+        this.selectCharts = 'h';
         if(this.timer!=null){
           clearTimeout(this.timer);
         }
@@ -899,6 +902,7 @@
         return resultData;
       },
       getWirelessInfoByCellId(){
+        this.selectCharts = 'd';
         if(this.timer!=null){
           clearTimeout(this.timer);
         }

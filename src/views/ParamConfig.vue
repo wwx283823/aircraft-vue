@@ -3,27 +3,40 @@
       <div class="container-fluid">
         <div class="row" style="margin-top: 40px;    margin-right: 9%;">
             <div class="col-xs-12 col-sm-12 col-md-12 paramDiv">
-              <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: right">
-                <label class="paramLabel">频点间基于用户数的快速负载均衡:</label>
+              <div class="col-xs-12 col-sm-4 col-md-5" style="">
                 <select v-model="HeavyLoadParam.type3" class="bigTalkSelect">
                   <option value="1">开</option>
                   <option value="0">关</option>
                 </select>
-
-                <label class="paramLabel">用户数开关</label>
-                <select  class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw">
-                  <option value="1">开</option>
-                  <option value="0">关</option>
-                </select>
+                <label class="paramLabel">频点间基于用户数的快速负载均衡</label>
               </div>
-              <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: left;">
-                <label class="paramLabel">上行RB利用率(%)</label>
-                <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
-                <label class="paramLabel">下行RB利用率(%)</label>
-                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.dlrbmaxrate" />
-                <div v-show="HeavyLoadParam.usercntsw=='1'" class="paramLabel2">
-                  <label class="paramLabel">用户数步长</label>
-                  <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
+              <div class="col-xs-12 col-sm-8 col-md-7" style="text-align: left;">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="paramLabel">上行RB利用率</label>
+                    <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
+                    <label class="paramLabel">%</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="paramLabel">下行RB利用率</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.dlrbmaxrate" />
+                    <label class="paramLabel">%</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="paramLabel">用户数开关</label>
+                    <select  class="bigTalkSelect" v-model="HeavyLoadParam.usercntsw">
+                      <option value="1">开</option>
+                      <option value="0">关</option>
+                    </select>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div v-show="HeavyLoadParam.usercntsw=='1'" class="paramLabel2">
+                      <label class="paramLabel">用户数步长</label>
+                      <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercnt" />
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -33,105 +46,130 @@
               <!--<button @click="subBigTalkByCellId" type="button" class="btn btn-info paramMyButton" >调整</button>-->
             <!--</div>-->
         </div>
-        <div class="row" style="margin-right: 9%;    margin-top: 60px;">
+        <div class="row" style="margin-right: 9%;    margin-top: 40px;">
           <div class="col-xs-12 col-sm-12 col-md-12 paramDiv" >
-            <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: right">
-              <label class="paramLabel">基于用户数的快速调整:</label>
+            <div class="col-xs-12 col-sm-4 col-md-5" style="">
               <select v-model="HeavyLoadParam.type2" class="bigTalkSelect">
                 <option value="1">开</option>
                 <option value="0">关</option>
               </select>
-
-              <label class="paramLabel">用户数开关</label>
-              <select  class="bigTalkSelect" v-model="HeavyLoadParam.usercntswk">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-
-              <label class="paramLabel">RS功率开关</label>
-              <select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltasw">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
+              <label class="paramLabel">基于用户数的快速调整</label>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: left;">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <label class="paramLabel">上行RB利用率(%)</label>
-                <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxratek" />
-                <label class="paramLabel">最大用户数门限</label>
-                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.maxcelluser" />
-                <label class="paramLabel">与邻区用户数超出比例(%)</label>
-                <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.neibouruserrate" />
+            <div class="col-xs-12 col-sm-8 col-md-7" style="text-align: left;">
+              <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="paramLabel">小区最大用户数门限</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.maxcelluser" />
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="paramLabel">与邻区用户数超出比例</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.neibouruserrate" />
+                    <label class="paramLabel">%</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <label class="paramLabel">上行RB利用率</label>
+                    <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxratek" />
+                    <label class="paramLabel">%</label>
+                  </div>
               </div>
-
-
-              <div class="col-xs-3 col-sm-3 col-md-3">
-                <div v-show="HeavyLoadParam.usercntswk=='1'" class="paramLabel2">
-                  <label class="paramLabel">用户数步长</label>
-                  <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercntk" />
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <label class="paramLabel">用户数开关</label>
+                  <select  class="bigTalkSelect" v-model="HeavyLoadParam.usercntswk">
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                  </select>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div v-show="HeavyLoadParam.usercntswk=='1'" class="paramLabel2">
+                    <label class="paramLabel">用户数步长</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercntk" />
+                  </div>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-3 col-md-3">
-                <div v-show="HeavyLoadParam.rspwrdeltasw=='1'" class="paramLabel2" style="text-align: left">
-                  <label class="paramLabel">RS功率步长</label>
-                  <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdelta" />
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <label class="paramLabel">RS功率开关</label>
+                  <select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltasw">
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                  </select>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div v-show="HeavyLoadParam.rspwrdeltasw=='1'" class="paramLabel2" style="text-align: left">
+                    <label class="paramLabel">RS功率步长</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdelta" />
+                    <label class="paramLabel">0.1dBm</label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="row" style="margin-right: 9%;    margin-top: 60px;">
+        <div class="row" style="margin-right: 9%;    margin-top: 40px;">
           <div class="col-xs-12 col-sm-12 col-md-12 paramDiv" >
-            <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: right;">
-              <label class="paramLabel">基于干扰的快速负载均衡:</label>
+            <div class="col-xs-12 col-sm-4 col-md-5" style="">
               <select v-model="HeavyLoadParam.type1" class="bigTalkSelect">
                 <option value="1">开</option>
                 <option value="0">关</option>
               </select>
-
-              <label class="paramLabel">用户数开关</label>
-              <select  class="bigTalkSelect" v-model="HeavyLoadParam.usercntswg">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-
-              <label  class="paramLabel">RSRP高门限开关</label>
-              <select v-model="HeavyLoadParam.rsrpdeltasw" class="bigTalkSelect">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
-
-              <label class="paramLabel">RS功率开关</label>
-              <select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltaswg">
-                <option value="1">开</option>
-                <option value="0">关</option>
-              </select>
+              <label class="paramLabel">基于干扰的快速负载均衡</label>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: left;">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <label class="paramLabel">最大上行干扰(dBm)</label>
-                <input  type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulcellmaxinterference" />
-              </div>
-
-              <div class="col-xs-3 col-sm-3 col-md-3">
-                <div v-show="HeavyLoadParam.usercntswg=='1'" class="paramLabel2">
-                  <label class="paramLabel">用户数步长</label>
-                  <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercntg" />
+            <div class="col-xs-12 col-sm-8 col-md-7" style="text-align: left;">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <label class="paramLabel">最大上行干扰</label>
+                  <input  type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulcellmaxinterference" />
+                  <label class="paramLabel">dBm</label>
                 </div>
               </div>
-              <div class="col-xs-4 col-sm-4 col-md-4">
-                <div v-show="HeavyLoadParam.rsrpdeltasw=='1'" class="paramLabel2" style="text-align: left">
-                  <label class="paramLabel">RSRP高限步长</label>
-                  <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rsrpdelta" />
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <label class="paramLabel">用户数开关</label>
+                  <select  class="bigTalkSelect" v-model="HeavyLoadParam.usercntswg">
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                  </select>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div v-show="HeavyLoadParam.usercntswg=='1'" class="paramLabel2">
+                    <label class="paramLabel">用户数步长</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.usercntg" />
+                  </div>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-3 col-md-3">
-                <div v-show="HeavyLoadParam.rspwrdeltaswg=='1'" class="paramLabel2" style="text-align: left">
-                  <label class="paramLabel">RS功率步长</label>
-                  <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdeltag" />
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <label class="paramLabel">RS功率调整开关</label>
+                  <select class="bigTalkSelect" v-model="HeavyLoadParam.rspwrdeltaswg">
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                  </select>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div v-show="HeavyLoadParam.rspwrdeltaswg=='1'" class="paramLabel2" style="text-align: left">
+                    <label class="paramLabel">RS功率步长</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rspwrdeltag" />
+                    <label class="paramLabel">0.1dBm</label>
+                  </div>
                 </div>
               </div>
-
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <label  class="paramLabel">RSRP高门限开关</label>
+                  <select v-model="HeavyLoadParam.rsrpdeltasw" class="bigTalkSelect">
+                    <option value="1">开</option>
+                    <option value="0">关</option>
+                  </select>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                  <div v-show="HeavyLoadParam.rsrpdeltasw=='1'" class="paramLabel2" style="text-align: left">
+                    <label class="paramLabel">RSRP高门限步长</label>
+                    <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.rsrpdelta" />
+                    <label class="paramLabel">0.1dBm</label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -214,24 +252,24 @@
           type2:'0',
           type3:'0',
           effecttype:'0',
-          ulcellmaxinterference:'0',
-          ulrbmaxrate:'0',
-          ulrbmaxratek:'0',
-          dlrbmaxrate:'0',
+          ulcellmaxinterference:'-105',
+          ulrbmaxrate:'50',
+          ulrbmaxratek:'85',
+          dlrbmaxrate:'50',
           usercntsw:'1',
           usercntswk:'1',
           usercntswg:'1',
           rsrpdeltasw:'1',
           rspwrdeltasw:'1',
           rspwrdeltaswg:'1',
-          usercnt:'0',
-          usercntk:'0',
-          usercntg:'0',
-          rsrpdelta:'0',
-          rspwrdelta:'0',
-          rspwrdeltag:'0',
-          maxcelluser:'0',
-          neibouruserrate:'0',
+          usercnt:'2',
+          usercntk:'2',
+          usercntg:'2',
+          rsrpdelta:'2',
+          rspwrdelta:'2',
+          rspwrdeltag:'2',
+          maxcelluser:'200',
+          neibouruserrate:'5',
           cellId:'',
           openClose:'1'
         },
