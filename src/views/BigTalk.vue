@@ -92,9 +92,9 @@
         <!--</div>-->
         <div class="row">
           <div class="col-xs-6 col-sm-12 col-md-6">
-            <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/u5-2F.svg" type="image/svg+xml" />
+            <embed id="svgId" style="width: 96%;height: 100%" src="../../static/images/u5-b.svg" type="image/svg+xml" />
           </div>
-          <div class="col-xs-6 col-md-6 col-sm-12" style="">
+          <div class="col-xs-6 col-md-6 col-sm-12" style="margin-top: 1.5%;">
             <ul class="nav nav-pills" style="border-bottom:0px">
               <li class="active">
                 <a href="#home"　 data-toggle="tab" @click="getEchartsDataByCellId(myCellId)">
@@ -115,11 +115,11 @@
                   is-vertical-resize
                   style="width:100%"
                   is-horizontal-resize
-                  :vertical-resize-offset='300'
+                  :vertical-resize-offset='55'
                   :min-height='150'
-                  :max-height='600'
                   :columns="cellColumns"
                   :table-data="cellData"
+                  :column-cell-class-name="columnCellClass2"
                   row-hover-color="#eee"
                   row-click-color="#edf7ff"
                 ></v-table>
@@ -129,11 +129,11 @@
                   is-vertical-resize
                   style="width:100%"
                   is-horizontal-resize
-                  :vertical-resize-offset='300'
+                  :vertical-resize-offset='55'
                   :min-height='150'
-                  :max-height='600'
                   :columns="columns"
                   :table-data="historyTableData"
+                  :column-cell-class-name="columnCellClass2"
                   row-hover-color="#eee"
                   row-click-color="#edf7ff"
                 ></v-table>
@@ -166,7 +166,7 @@
       </div>
 　　</div>
 </template>
-<style scoped>
+<style>
   @import '../../static/css/app.css';
 </style>
 <script type="text/javascript">
@@ -177,6 +177,7 @@
         historyData:[],
         myParamTime:"",
         timer:'',
+        timer2:'',
         historyTableData:[],
         myCellIdList:['16','17','18'],
         options:[
@@ -214,19 +215,20 @@
         myShow:false,
         cellIdLists:[],
         cellColumns: [
-          {field: 'ulServiceCellId', title: '小区Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'uleNodebId', title: '基站Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usMaxUserNum', title: '最大用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulCellInterference', title: '小区干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucULRbRate', title: '上行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucDLRbRate', title: '下行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucULAvgMcs', title: '上行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ucDLAvgMcs', title: '下行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulActiveUserNum', title: '激活用户数(人/s)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulULActiveUserAvgRate', title: '上行平均感知速率(mbps)', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulULCellTraffic', title: '上行小区流量(mbps)', width: 35, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usAvgUserNum', title: '平均用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usCpuRate', title: 'CPU利用率(%)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true}
+          {field: 'ulServiceCellId', title: '小区Id', width: 8,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'uleNodebId', title: '基站Id', width: 10,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'timestamp', title: '时间', width: 36, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usMaxUserNum', title: '最大用户数', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulCellInterference', title: '小区干扰(dBm)',titleCellClassName:'title-cell-class-name-test', width:18 , titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucULRbRate', title: '上行RB利用率(%)', width: 24,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucDLRbRate', title: '下行RB利用率(%)', width: 24,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucULAvgMcs', title: '上行平均MCS', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ucDLAvgMcs', title: '下行平均MCS', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulActiveUserNum', title: '激活用户数(人/s)',titleCellClassName:'title-cell-class-name-test', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULActiveUserAvgRate', title: '上行平均感知速率(mbps)',titleCellClassName:'title-cell-class-name-test', width: 50, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulULCellTraffic', title: '上行小区流量(mbps)', width: 35,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usAvgUserNum', title: '平均用户数', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usCpuRate', title: 'CPU利用率(%)', width: 15,titleCellClassName:'title-cell-class-name-test', titleAlign: 'center', columnAlign: 'center',isResize:true}
 
         ],
         cellData:[],
@@ -247,10 +249,10 @@
         if(this.timer!=null){
           clearTimeout(this.timer);
         }
+        this.myChartsOption1 = {};
+        this.myChartsOption1 = {};
+        this.myChartsOption1 = {};
         let _this = this;
-        _this.myChartsOption1 = '';
-        _this.myChartsOption2 = '';
-        _this.myChartsOption3 = '';
         axios.get('/api/getEchartsDataByCellId',{
           params:
             {'ulServiceCellId':cellId}
@@ -261,13 +263,21 @@
         }).catch(function(err){
           console.log(err);
         });
-        _this.timer = setTimeout(function()  {
+        setTimeout(function()  {
           if(_this.$route.path.split("bigTalk").length>1){
-             _this.refreshEchartsDataByCellId(cellId)//娃娃消失
+             _this.refreshEchartsDataByCellId(_this.myCellId);//娃娃消失
           }
-        }, 4000);
+        }, 2000);
+      },
+      columnCellClass2(rowIndex,columnName,rowData){
+
+        return 'column-cell-class-name-test';
+
       },
       refreshEchartsDataByCellId(cellId){
+        if(this.timer2!=null){
+          clearTimeout(this.timer2);
+        }
         let myChart = this.$echarts.init(document.getElementById("myChart"));
         let myChart2 = this.$echarts.init(document.getElementById("myChart2"));
         let myChart3 = this.$echarts.init(document.getElementById("myChart3"));
@@ -277,7 +287,7 @@
         let series1 = option1.series[0].data;
         let series4 = option3.series[0].data;
         let series2 = option2.series[0].data;
-        let series3 = option2.series[1].data;
+//        let series3 = option2.series[1].data;
         let dataLength = option1.xAxis.data.length;
         let allTime = option1.xAxis.data;
         let dataTime = option1.xAxis.data[dataLength-1];
@@ -332,22 +342,22 @@
             allTime.push(resultTime);
             series1.shift();
             series2.shift();
-            series3.shift();
+//            series3.shift();
             series4.shift();
             series1.push(count);
             series2.push(ucULRbRate);
-            series3.push(ucDLRbRate);
+//            series3.push(ucDLRbRate);
             series4.push(ulCellInterference);
           }else{
             allTime.push(resultTime);
             series1.push(count);
             series2.push(ucULRbRate);
-            series3.push(ucDLRbRate);
+//            series3.push(ucDLRbRate);
             series4.push(ulCellInterference);
           }
           option1.series[0].data = series1;
           option2.series[0].data = series2;
-          option2.series[1].data = series3;
+//          option2.series[1].data = series3;
           option3.series[0].data = series4;
           option1.xAxis.data = allTime;
           option2.xAxis.data = allTime;
@@ -362,11 +372,11 @@
         }).catch(function(err){
           console.log(err);
         });
-        _this.timer = setTimeout(function()  {
+        this.timer2 = setTimeout(function()  {
           if(_this.$route.path.split("bigTalk").length>1){
             _this.refreshEchartsDataByCellId(cellId)//娃娃消失
           }
-        }, 4000);
+        }, 2000);
       },
       historyDataFormat(historyData){
         for (let i=0;i<historyData.length;i++){
@@ -437,7 +447,8 @@
         let myDocument = document.getElementById("svgId");
         let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
         if(seleteDocument!=null){
-          seleteDocument.setAttributeNS(null, "fill", "red");
+          seleteDocument.setAttributeNS(null, "fill", "#6DFDFD");
+          seleteDocument.setAttributeNS(null, "opacity", "0.5");
           this.cellIdLists.push(cellId);
         }
       },
@@ -449,7 +460,8 @@
 //          myDocument.getSVGDocument().getElementById(cellId).setAttributeNS(null, "fill", "#FEEEFF")
           let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
           if(seleteDocument!=null){
-            seleteDocument.setAttributeNS(null, "fill", "#4CB9FF");
+            seleteDocument.setAttributeNS(null, "fill", "#b6b7b7");
+            seleteDocument.setAttributeNS(null, "opacity", "0.5");
           }
         }
         this.cellIdLists = [];
@@ -467,7 +479,7 @@
               let result = response.data;
               if(result=="success"){
                 alert("调整成功！");
-                _this.getHistoryBigTalkByCellId(_this.myCellId);
+//                _this.getHistoryBigTalkByCellId(_this.myCellId);
               }else {
                 alert("调整失败！");
               }
@@ -479,7 +491,7 @@
       addColorOrTip(e){
         this.restSvgDocuments();
         this.cellIdLists.push(e.getAttribute("id"));
-         e.setAttributeNS(null, "fill", "red");
+         e.setAttributeNS(null, "fill", "#6DFDFD");
       },
       historyDataFor(resultData){
         for(let i = 0 ;i<resultData.length;i++){
@@ -494,7 +506,7 @@
           }else if(type==2){
             showValues = result.rsrpDelta;
           }
-          let d = new Date(times);    //根据时间戳生成的时间对象
+          let d = new Date(parseFloat(times)-(1000*60*60*8));    //根据时间戳生成的时间对象
           let date = (d.getFullYear()) + "-" +
             (d.getMonth() + 1) + "-" +
             (d.getDate()) + " " +
@@ -525,7 +537,7 @@
           if(_this.$route.path.split("bigTalk").length>1){
             _this.getHistoryBigTalkByCellId(_this.myCellId);//娃娃消失
           }
-        }, 4000);
+        }, 2000);
 
       },
       myDblclick(e,event){
@@ -557,7 +569,7 @@
           myDocument.getSVGDocument().getElementById(cellId).addEventListener("click",function() {
             _this.myCellId = cellId;
             _this.addColorOrTip(this);
-            // _this.getHistoryBigTalkByCellId(cellId);
+            _this.getHistoryBigTalkByCellId(cellId);
             _this.getEchartsDataByCellId(cellId);
             _this.getWirelessInfoByCellId();
 
@@ -617,7 +629,7 @@
         let legendUserData = [];
         let legendInterfrenceData = [];
         legendUlData.push(ulName);
-        legendUlData.push(dlName);
+//        legendUlData.push(dlName);
         legendUserData.push(maxName);
         legendInterfrenceData.push(interfrenceName);
         for (let i = 0;i<ehartsData.length;i++){
@@ -625,7 +637,7 @@
           maxUserData.push(models.usMaxUserNum);
           maxinterferenceData.push(models.ulCellInterference)
           ulrbmaxrateData.push(models.ucULRbRate);
-          dlrbmaxrateData.push(models.ucDLRbRate);
+//          dlrbmaxrateData.push(models.ucDLRbRate);
           let times = models.timestamp.split("T")[1].split(".")[0];
           let timesSet = times.split(":");
           let result = parseInt(timesSet[0])+8
@@ -642,31 +654,31 @@
           },
           symbol:'none',  //这句就是去掉点的
           smooth:true,  //这句就是让曲线变平滑的
-          itemStyle: {
-            normal: {   //颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
-              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1,[{
-                  offset: 0, color: '#d7f4f8' // 0% 处的颜色
-                }, {
-                  offset: 0.5, color: '#eefcfd' // 100% 处的颜色
-                }, {
-                  offset: 1, color: '#fff' // 100% 处的颜色
-                }]
-              ),  //背景渐变色
-              lineStyle: {        // 系列级个性化折线样式
-                width: 3,
-                type: 'solid',
-                color: "#4fd6d2"
-              }
-            },
-            emphasis: {
-              color: '#4fd6d2',
-              lineStyle: {        // 系列级个性化折线样式
-                width:2,
-                type: 'dotted',
-                color: "#4fd6d2" //折线的颜色
-              }
-            }
-          },
+//          itemStyle: {
+//            normal: {   //颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+//              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1,[{
+//                  offset: 0, color: '#d7f4f8' // 0% 处的颜色
+//                }, {
+//                  offset: 0.5, color: '#eefcfd' // 100% 处的颜色
+//                }, {
+//                  offset: 1, color: '#fff' // 100% 处的颜色
+//                }]
+//              ),  //背景渐变色
+//              lineStyle: {        // 系列级个性化折线样式
+//                width: 3,
+//                type: 'solid',
+//                color: "#4fd6d2"
+//              }
+//            },
+//            emphasis: {
+//              color: '#4fd6d2',
+//              lineStyle: {        // 系列级个性化折线样式
+//                width:2,
+//                type: 'dotted',
+//                color: "#4fd6d2" //折线的颜色
+//              }
+//            }
+//          },
           data:maxUserData
         };
         let interferenceJson = {
@@ -691,18 +703,18 @@
           smooth:true,  //这句就是让曲线变平滑的
           data:ulrbmaxrateData
         };
-        let rbmaxrateJson2 = {
-          name:dlName,
-          type:'line',
-          areaStyle: {
-            opacity:0.3
-          },
-          symbol:'none',  //这句就是去掉点的
-          smooth:true,  //这句就是让曲线变平滑的
-          data:dlrbmaxrateData
-        };
+//        let rbmaxrateJson2 = {
+//          name:dlName,
+//          type:'line',
+//          areaStyle: {
+//            opacity:0.3
+//          },
+//          symbol:'none',  //这句就是去掉点的
+//          smooth:true,  //这句就是让曲线变平滑的
+//          data:dlrbmaxrateData
+//        };
         rbmaxrateSeries.push(rbmaxrateJson1);
-        rbmaxrateSeries.push(rbmaxrateJson2);
+//        rbmaxrateSeries.push(rbmaxrateJson2);
         this.myChartsOption1 = this.drawLine('myChart',xData,legendUserData,maxSeries,'(人)','当前用户数');
         this.myChartsOption2 = this.drawLine('myChart2',xData,legendUlData,rbmaxrateSeries,'(%)','RB利用率');
         this.myChartsOption3 = this.drawLine('myChart3',xData,legendInterfrenceData,maxinterference,'(dBm)','小区干扰');
@@ -739,11 +751,11 @@
               }
             }
           },
-          color:['#fbcc8a','#ad5cf8'],
+          color:['#ffffff','#6DFDFD'],
           legend:{
             data:echartslegend,
             textStyle:{
-              color:['#fbcc8a','#ad5cf8'],
+              color:['#6DFDFD','#6DFDFD'],
               fontSize:18
             }
 
@@ -755,7 +767,7 @@
             axisLine:{
               onZero:true,
               lineStyle:{
-                color:'#fbd01b',
+                color:'#6DFDFD',
                 width:5
               }
             },
@@ -780,7 +792,7 @@
             },
             axisLine:{
               lineStyle:{
-                color:'#fbd01b',
+                color:'#6DFDFD',
                 width:5
               }
             },
@@ -871,6 +883,21 @@
           alert("请选择调整策略！");
         }
       },
+      dataFor(resultData){
+        for(let i = 0 ;i<resultData.length;i++){
+          let results = resultData[i];
+          let models = results.timestamp;
+
+          let times = models.split("T")[1].split(".")[0];
+          let timesSet = times.split(":");
+          let result = parseInt(timesSet[0])+8
+          if(result>23){
+            result = result-24;
+          }
+          results.timestamp = result+":"+timesSet[1]+":"+timesSet[2];
+        }
+        return resultData;
+      },
       getWirelessInfoByCellId(){
         if(this.timer!=null){
           clearTimeout(this.timer);
@@ -881,7 +908,7 @@
         }).
         then(response =>{
           let dataList = response.data;
-          this.cellData = dataList;
+          this.cellData = _this.dataFor(dataList);;
         }).catch(function(err){
           console.log(err);
         });
@@ -890,7 +917,7 @@
           if(_this.$route.path.split("bigTalk").length>1){
             _this.getWirelessInfoByCellId()//娃娃消失
           }
-        }, 4000);
+        }, 2000);
 
       }
     },

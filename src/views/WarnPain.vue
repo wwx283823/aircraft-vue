@@ -1,35 +1,31 @@
 <template>
 　　<div id="bodyHtml">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-1 col-sm-1 col-md-1">
-            <router-link class="routerClass" to="/paramConfig" style="font-size: 18px;color: aquamarine;">参数配置</router-link>
-          </div>
-        </div>
-        <div class="row" style="margin-top: 15px;">
+
+        <div class="row" style="margin-top: 15px;    margin-left: 1.3%; text-align: left;">
           <div class="col-xs-2 col-sm-2 col-md-2">
             <label class="bodyHtmlLabel">最大用户数</label>
             <input id="userId" type="text" class="bodyHtmlInput" v-model="myParam.userCnt" />
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+          <div class="col-xs-2 col-sm-2 col-md-2 divMargin" >
             <label class="bodyHtmlLabel">小区干扰</label>
             <input id="cellInterferenceId" type="text" class="bodyHtmlInput"  v-model="myParam.cellInterference" />
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+          <div class="col-xs-2 col-sm-2 col-md-2" style="margin-left: -78px" >
             <label class="bodyHtmlLabel">上行RB利用率</label>
             <input id="ucULRbRateId" type="text" class="bodyHtmlInput"  v-model="myParam.ucULRbRate" />
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+          <div class="col-xs-2 col-sm-2 col-md-2 "style="margin-left: -34px;">
             <label class="bodyHtmlLabel">下行RB利用率</label>
             <input  id="ucDLRbRateId" type="text" class="bodyHtmlInput" v-model="myParam.ucDLRbRate" />
           </div>
-          <div class="col-xs-1 col-sm-1 col-md-1">
-            <button @click="getWirelessInfoByParam" type="button" class="btn btn-info" >过滤</button>
+          <div class="col-xs-1 col-sm-1 col-md-1 divMargin">
+            <button @click="getWirelessInfoByParam" type="button" class="btn btn-info" style="color: #000;background-color: #6DFDFD;border-color: #6DFDFD;" >过滤</button>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-6 col-sm-12 col-md-6">
-            <embed id="svgId" style="width: 100%;height: 100%" src="../../static/images/u5-2F.svg" type="image/svg+xml" />
+            <embed id="svgId" style="width: 100%;height: 100%" src="../../static/images/u5-3.svg" type="image/svg+xml" />
           </div>
           <div class="col-xs-6 col-md-6 col-sm-12" style="padding-top: 1.5%;">
             <v-table
@@ -40,6 +36,7 @@
               :min-height='150'
               :columns="columns"
               :table-data="myTableData"
+              :column-cell-class-name="columnCellClass2"
               row-hover-color="#eee"
               row-click-color="#edf7ff"
             ></v-table>
@@ -70,7 +67,7 @@
       </div>
 　　</div>
 </template>
-<style scoped>
+<style >
   @import '../../static/css/app.css';
 </style>
 <script type="text/javascript">
@@ -89,10 +86,11 @@
         nowTime:new Date(),
         myTableData:[],
         columns: [
-          {field: 'ulServiceCellId', title: '小区Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulServiceCellId', title: '小区Id', width: 5, titleAlign: 'center',titleCellClassName:'title-cell-class-name-test',columnAlign: 'center',isResize:true},
           {field: 'uleNodebId', title: '基站Id', width: 10, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'usMaxUserNum', title: '最大用户数', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
-          {field: 'ulCellInterference', title: '小区干扰(dBm)', width: 20, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'timestamp', title: '时间', width: 35, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'usMaxUserNum', title: '最大用户数', width: 13, titleAlign: 'center', columnAlign: 'center',isResize:true},
+          {field: 'ulCellInterference', title: '小区干扰(dBm)', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucULRbRate', title: '上行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucDLRbRate', title: '下行RB利用率(%)', width: 30, titleAlign: 'center', columnAlign: 'center',isResize:true},
           {field: 'ucULAvgMcs', title: '上行平均MCS', width: 15, titleAlign: 'center', columnAlign: 'center',isResize:true},
@@ -113,7 +111,13 @@
         let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
         if(seleteDocument!=null){
           seleteDocument.setAttributeNS(null, "fill", "red");
+          seleteDocument.setAttributeNS(null, "opacity", "0.5");
         }
+      },
+      columnCellClass2(rowIndex,columnName,rowData){
+
+        return 'column-cell-class-name-test';
+
       },
       restSvgDocuments(){
         let myDocument = document.getElementById("svgId");
@@ -123,25 +127,41 @@
 //          myDocument.getSVGDocument().getElementById(cellId).setAttributeNS(null, "fill", "#FEEEFF")
           let seleteDocument = myDocument.getSVGDocument().getElementById(cellId);
           if(seleteDocument!=null){
-            seleteDocument.setAttributeNS(null, "fill", "#4CB9FF");
+            seleteDocument.setAttributeNS(null, "fill", "#6DFDFD");
+            seleteDocument.setAttributeNS(null, "opacity", "0.5");
           }
         }
         this.cellIdLists = [];
+      },
+      dataFor(resultData){
+        for(let i = 0 ;i<resultData.length;i++){
+          let results = resultData[i];
+          let models = results.timestamp;
+
+          let times = models.split("T")[1].split(".")[0];
+          let timesSet = times.split(":");
+          let result = parseInt(timesSet[0])+8
+          if(result>23){
+            result = result-24;
+          }
+          results.timestamp = result+":"+timesSet[1]+":"+timesSet[2];
+        }
+        return resultData;
       },
       getWirelessInfos(){
           let _this = this;
           axios.get('/api/getWirelessInfos').
           then(function(response){
-            _this.myTableData = response.data;
+            _this.myTableData = _this.dataFor(response.data);
           }).catch(function(err){
             console.log(err);
           });
         setTimeout(function()  {
           if(_this.$route.path.split("warn").length>1){
             _this.getWirelessInfos()//娃娃消失
-            _this.getWirelessInfoByParam();
+//            _this.reWirelessInfoByParam();
           }
-        }, 4000);
+        }, 2000);
 
       },
       addSvgClick(){
@@ -153,6 +173,17 @@
             _this.$router.push({path:'/bigTalk/'+cellId})
           });
         }
+      },
+      getHeavyLoadParam(){
+        axios.get('/api/getHeavyLoadParam').
+        then(response =>{
+          let dataList = response.data;
+          if(dataList.length>0){
+            this.myParam = dataList[0];
+          }
+        }).catch(function(err){
+          console.log(err);
+        });
       },
       getWirelessInfoByParam(){
 //        this.addSvgClick();
@@ -172,6 +203,23 @@
           console.log(err);
         });
 
+      },
+      reWirelessInfoByParam(){
+        this.restSvgDocuments();
+        axios.get('/api/reWirelessInfoByParam',{
+          params:
+          this.myParam
+        }).
+        then(response =>{
+          let dataList = response.data;
+          for(let i = 0;i<dataList.length;i++){
+            let model = dataList[i];
+            this.cellIdLists.push(model.ulServiceCellId);
+            this.redSvgDocuments(model.ulServiceCellId);
+          }
+        }).catch(function(err){
+          console.log(err);
+        });
       }
     },
     created(){
@@ -180,9 +228,9 @@
     mounted(){
       setTimeout(() => {
         this.addSvgClick();
-        this.getWirelessInfoByParam();
+        this.reWirelessInfoByParam();
       }, 1000)
-
+      this.getHeavyLoadParam();
     },
   }
 

@@ -1,6 +1,6 @@
 .routerClass{
-  color: white;
-  font-size: 25px;
+  color: #6DFDFD;
+  font-size: 22px;
 }
 .bodyHtmlLabel{
   color: white;
@@ -30,6 +30,9 @@
 .timeClass{
   color: white;
   font-size: 18px;
+  margin-top: -55px;
+  /* margin-left: 1px; */
+  text-align: left;
 }
 .titleCell{
   background-color: red;
@@ -45,13 +48,13 @@
   opacity: 0.2;
 }
 .paramLabel{
-  color: aqua;
+  color: #6DFDFD;
   font-size: 18px;
   margin-top: 35px;
   margin-bottom: 35px;
 }
 .paramLabel2{
-  color: aqua;
+  /*color: aqua;*/
   font-size: 18px;
   /*margin-top: -30px;*/
   /*margin-bottom: 20px;*/
@@ -60,7 +63,8 @@
   /*border-top: 3px solid #fdb425;*/
   /*border-left: 3px solid #fdb425;*/
   margin-left: 5%;
-  border: 3px solid #fdb425;
+  border: 3px solid #6DFDFD;
+  background-color: rgba(0,0,0,0.5);
 }
 .paramButton{
   margin-left: 5%;
@@ -70,20 +74,27 @@
 }
 .paramMyButton{
   margin-top: 35px;
+  width: 150px;
+  border-bottom-color: #6DFDFD;
+  color: black;
   /*margin-bottom: 10px;*/
 }
 
 .column-cell-class-name-test{
-  background-color: #187;
-  color:black;
+  background-color: #253952;
+  color:white;
   font-size: 17px;
   /*background-color: transparent;*/
 }
 .v-table-title-cell{
-  border-color: rgb(46, 156, 193);
+  border-color:#6DFDFD;;
+}
+.v-table-views{
+  border: 1px solid #6DFDFD;
 }
 .v-table-header-row{
-  background-color: aqua;
+  background-color: #253952;
+  color: #6DFDFD;
 }
 .column-cell-class-name-test .v-table-body-cell {
   /*background-color: transparent !important;*/
@@ -94,5 +105,10 @@
 .historyDiv{
  margin-left: 4.4%; width: 89.35%; border: 3px solid rgb(253, 180, 37);padding-bottom: 25px;
 }
-
-
+.divMargin{
+  margin-left: -55px;
+}
+.v-table-empty-inner {
+  background-color: #253952;
+  color: #6DFDFD;
+}

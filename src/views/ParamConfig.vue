@@ -5,7 +5,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 paramDiv">
               <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: right">
                 <label class="paramLabel">频点间基于用户数的快速负载均衡:</label>
-                <select v-model="HeavyLoadParam.type" class="bigTalkSelect">
+                <select v-model="HeavyLoadParam.type3" class="bigTalkSelect">
                   <option value="1">开</option>
                   <option value="0">关</option>
                 </select>
@@ -17,9 +17,9 @@
                 </select>
               </div>
               <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: left;">
-                <label class="paramLabel">上行RB利用率</label>
+                <label class="paramLabel">上行RB利用率(%)</label>
                 <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxrate" />
-                <label class="paramLabel">下行RB利用率</label>
+                <label class="paramLabel">下行RB利用率(%)</label>
                 <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.dlrbmaxrate" />
                 <div v-show="HeavyLoadParam.usercntsw=='1'" class="paramLabel2">
                   <label class="paramLabel">用户数步长</label>
@@ -56,11 +56,11 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: left;">
               <div class="col-xs-12 col-sm-12 col-md-12">
-                <label class="paramLabel">上行RB利用率</label>
+                <label class="paramLabel">上行RB利用率(%)</label>
                 <input type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulrbmaxratek" />
                 <label class="paramLabel">最大用户数门限</label>
                 <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.maxcelluser" />
-                <label class="paramLabel">与邻区用户数超出比例</label>
+                <label class="paramLabel">与邻区用户数超出比例(%)</label>
                 <input  type="text" class="bigTalkInput" v-model="HeavyLoadParam.neibouruserrate" />
               </div>
 
@@ -109,7 +109,7 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6" style="text-align: left;">
               <div class="col-xs-12 col-sm-12 col-md-12">
-                <label class="paramLabel">最大上行干扰</label>
+                <label class="paramLabel">最大上行干扰(dBm)</label>
                 <input  type="text" class="bigTalkInput"  v-model="HeavyLoadParam.ulcellmaxinterference" />
               </div>
 
@@ -212,6 +212,7 @@
           type:'0',
           type1:'0',
           type2:'0',
+          type3:'0',
           effecttype:'0',
           ulcellmaxinterference:'0',
           ulrbmaxrate:'0',
@@ -336,7 +337,6 @@
       subBigTalkByCellId(){
           let _this = this;
           // let checked = this.checkFunction(this.HeavyLoadParam);
-          if(!(this.HeavyLoadParam.type=="0"&&this.HeavyLoadParam.type1=="0"&&this.HeavyLoadParam.type2=="0")){
             // this.HeavyLoadParam.cellId = this.myCellId;
             axios.get('/api/newSubBigTalkByCellId',{
               params:
@@ -344,7 +344,7 @@
             }).
             then(function(response){
               let resultData = response.data;
-              let alertStr = null;
+              let alertStr = "";
               if(resultData["result"]=="success"){
                 alertStr = "频点间基于用户数的快速负载均衡调整成功!";
               }else if(resultData["result"]=="failed"){
@@ -360,14 +360,15 @@
               }else if(resultData["result2"]=="failed"){
                 alertStr = alertStr+"基于用户数的快速调整调整失败！";
               }
-              alert(alertStr);
+              if(alertStr==""){
+                alert("参数没修改，没发起调整！");
+              }else{
+                alert(alertStr);
+              }
               _this.getHistoryBigTalkByCellId(_this.myCellId);
             }).catch(function(err){
               console.log(err);
             });
-          }else{
-            alert("您未打开调整策略！")
-          }
       },
       getNewHistory(){
         let _this = this;

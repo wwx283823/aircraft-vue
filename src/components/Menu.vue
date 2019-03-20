@@ -6,13 +6,18 @@
           <img src="../../static/images/title.png"/>
         </div>
       </div>
-      <div class="row">
+      <div class="row"style="margin-left: 1.3%;">
         <div class="col-xs-3 col-sm-3 col-md-3 timeClass">
           {{nowTime}}
         </div>
       </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12" style="    text-align: right;margin-top: -55px;">
+          <router-link class="routerClass" to="/paramConfig" style="font-size: 18px;color: #6DFDFD;border: 1px solid #6DFDFD;border-radius: 2px;">参数配置</router-link>
+        </div>
+      </div>
       <div class="row" style="    margin-top: 15px;">
-        <router-link class="routerClass" to="/warn">痛点指示告警 |</router-link>
+        <router-link class="routerClass" to="/warn">痛点指标告警 |</router-link>
         <router-link class="routerClass" to="/bigTalk/16">大话务保障 |</router-link>
         <router-link class="routerClass" to="/view3">AI参数优化 |</router-link>
         <router-link class="routerClass myRouter" to="/view3">智能分析系统 |</router-link>
@@ -27,6 +32,7 @@
         <router-link class="routerClass myRouter" to="/view3">系统管理</router-link>
         <router-view/>
       </div>
+
     </div>
       <!--<div class="timeClass">{{nowTime}}</div>　　　　-->
     <!--  <div class="menu">
@@ -96,7 +102,7 @@
         });
         _this.myTimes = setTimeout(function()  {
             _this.getHistoryBySva()//娃娃消失
-        }, 10000);
+        }, 15000);
       }
     },
     //创建完成时调用
