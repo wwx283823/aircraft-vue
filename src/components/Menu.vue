@@ -95,14 +95,25 @@
         let _this = this;
         axios.get('/api/getHistoryBySva').
         then(function(response){
+//          let resultData = response.data;
+//          console.log(resultData);
+        }).catch(function(err){
+          console.log(err);
+        });
+        _this.subHperf();
+        _this.myTimes = setTimeout(function()  {
+            _this.getHistoryBySva();
+        }, 300000);
+      },
+      subHperf(){
+        let _this = this;
+        axios.get('/api/subHperf').
+        then(function(response){
           let resultData = response.data;
           console.log(resultData);
         }).catch(function(err){
           console.log(err);
         });
-        _this.myTimes = setTimeout(function()  {
-            _this.getHistoryBySva()//娃娃消失
-        }, 15000);
       }
     },
     //创建完成时调用
