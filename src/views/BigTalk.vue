@@ -318,59 +318,60 @@
         }).
         then(function(response){
           let resultData = response.data;
-          let count = 0;
-          let ucULRbRate = 0;
-          let ucDLRbRate = 0;
-          let ulCellInterference = 0;
-          let newTimes = null;
-          let resultTime = null;
-          if(resultData!=null){
-            count = resultData.usMaxUserNum;
-            ucULRbRate = resultData.ucULRbRate;
-            ucDLRbRate = resultData.ucDLRbRate;
-            newTimes = resultData.timestamp;
-            ulCellInterference = resultData.ulCellInterference;
-            _this.myParamTime = newTimes;
-            let times = newTimes.split("T")[1].split(".")[0];
-            let timesSet = times.split(":");
-            let result = parseInt(timesSet[0])+8;
-            if(result>23){
-              result = result-24;
+          if(resultData!=null&&resultData.ulServiceCellId==_this.myCellId){
+            let count = 0;
+            let ucULRbRate = 0;
+            let ucDLRbRate = 0;
+            let ulCellInterference = 0;
+            let newTimes = null;
+            let resultTime = null;
+            if(resultData!=null){
+              count = resultData.usMaxUserNum;
+              ucULRbRate = resultData.ucULRbRate;
+              ucDLRbRate = resultData.ucDLRbRate;
+              newTimes = resultData.timestamp;
+              ulCellInterference = resultData.ulCellInterference;
+              _this.myParamTime = newTimes;
+              let times = newTimes.split("T")[1].split(".")[0];
+              let timesSet = times.split(":");
+              let result = parseInt(timesSet[0])+8;
+              if(result>23){
+                result = result-24;
+              }
+              resultTime = (result+":"+timesSet[1]+":"+timesSet[2]);
             }
-            resultTime = (result+":"+timesSet[1]+":"+timesSet[2]);
-          }
-          if(dataLength>29){
-            allTime.shift();
-            allTime.push(resultTime);
-            series1.shift();
-            series2.shift();
+            if(dataLength>29){
+              allTime.shift();
+              allTime.push(resultTime);
+              series1.shift();
+              series2.shift();
 //            series3.shift();
-            series4.shift();
-            series1.push(count);
-            series2.push(ucULRbRate);
+              series4.shift();
+              series1.push(count);
+              series2.push(ucULRbRate);
 //            series3.push(ucDLRbRate);
-            series4.push(ulCellInterference);
-          }else{
-            allTime.push(resultTime);
-            series1.push(count);
-            series2.push(ucULRbRate);
+              series4.push(ulCellInterference);
+            }else{
+              allTime.push(resultTime);
+              series1.push(count);
+              series2.push(ucULRbRate);
 //            series3.push(ucDLRbRate);
-            series4.push(ulCellInterference);
-          }
-          option1.series[0].data = series1;
-          option2.series[0].data = series2;
+              series4.push(ulCellInterference);
+            }
+            option1.series[0].data = series1;
+            option2.series[0].data = series2;
 //          option2.series[1].data = series3;
-          option3.series[0].data = series4;
-          option1.xAxis.data = allTime;
-          option2.xAxis.data = allTime;
-          option3.xAxis.data = allTime;
-          _this.myChartsOption1 = option1;
-          _this.myChartsOption2 = option2;
-          _this.myChartsOption3 = option3;
-          myChart.setOption(option1);
-          myChart2.setOption(option2)
-          myChart3.setOption(option3)
-
+            option3.series[0].data = series4;
+            option1.xAxis.data = allTime;
+            option2.xAxis.data = allTime;
+            option3.xAxis.data = allTime;
+            _this.myChartsOption1 = option1;
+            _this.myChartsOption2 = option2;
+            _this.myChartsOption3 = option3;
+            myChart.setOption(option1);
+            myChart2.setOption(option2)
+            myChart3.setOption(option3)
+          }
         }).catch(function(err){
           console.log(err);
         });

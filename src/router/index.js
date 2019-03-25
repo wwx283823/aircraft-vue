@@ -10,7 +10,7 @@ import paramConfig from '@/views/ParamConfig.vue'
 Vue.use(Router)
 
 export default new Router({
-  // base:'/myVueProject',
+  base:'/myVueProject',
   routes: [
     {
       path: '/helloWorld',

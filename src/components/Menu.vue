@@ -11,15 +11,15 @@
           {{nowTime}}
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12" style="    text-align: right;margin-top: -55px;">
-          <router-link class="routerClass" to="/paramConfig" style="font-size: 18px;color: #6DFDFD;border: 1px solid #6DFDFD;border-radius: 2px;">参数配置</router-link>
-        </div>
-      </div>
+      <!--<div class="row">-->
+        <!--<div class="col-xs-12 col-sm-12 col-md-12" style="    text-align: right;margin-top: -55px;">-->
+          <!--<router-link class="routerClass" to="/paramConfig" style="font-size: 18px;color: #6DFDFD;border: 1px solid #6DFDFD;border-radius: 2px;">参数配置</router-link>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="row" style="    margin-top: 15px;">
         <router-link class="routerClass" to="/warn">痛点指标告警 |</router-link>
         <router-link class="routerClass" to="/bigTalk/16">大话务保障 |</router-link>
-        <router-link class="routerClass" to="/view3">AI参数优化 |</router-link>
+        <router-link class="routerClass" to="/paramConfig">AI参数优化 |</router-link>
         <router-link class="routerClass myRouter" to="/view3">智能分析系统 |</router-link>
         <router-link class="routerClass myRouter" to="/view3">集中分析 |</router-link>
         <router-link class="routerClass myRouter" to="/view3">集中参数 |</router-link>
@@ -97,23 +97,45 @@
         then(function(response){
 //          let resultData = response.data;
 //          console.log(resultData);
+          console.log("sva sub record:"+resultData);
         }).catch(function(err){
           console.log(err);
         });
-        _this.subHperf();
-        _this.myTimes = setTimeout(function()  {
-            _this.getHistoryBySva();
-        }, 300000);
+//        _this.subHperf();
       },
       subHperf(){
         let _this = this;
         axios.get('/api/subHperf').
         then(function(response){
           let resultData = response.data;
-          console.log(resultData);
+          console.log("sva sub:"+resultData);
         }).catch(function(err){
           console.log(err);
         });
+      },
+      getData(){
+        let _this = this;
+        axios.get('/api/getData').
+        then(function(response){
+          let resultData = response.data;
+          console.log("getData:"+resultData)
+          if(resultData==false){
+            _this.subHperf();
+          }
+//          _this.getHistoryBySva();
+        }).catch(function(err){
+          console.log(err);
+        });
+        _this.myTimes = setTimeout(function()  {
+          _this.getData();
+        }, 5000);
+      },
+      reflushHistory(){
+        this.getHistoryBySva();
+        let _this = this;
+        setTimeout(function()  {
+          _this.reflushHistory();
+        }, 30000);
       }
     },
     //创建完成时调用
@@ -122,6 +144,11 @@
     },
    mounted(){
      this.getHistoryBySva();
+     this.subHperf();
+     setTimeout(() => {
+       this.getData();
+       this.reflushHistory();
+     }, 10000)
    }
   }
 </script>
