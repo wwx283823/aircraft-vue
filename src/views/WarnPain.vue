@@ -159,7 +159,7 @@
         setTimeout(function()  {
           if(_this.$route.path.split("warn").length>1){
             _this.getWirelessInfos()//娃娃消失
-//            _this.reWirelessInfoByParam();
+            _this.reWirelessInfoByParam();
           }
         }, 2000);
 
