@@ -179,6 +179,7 @@
         myParamTime:"",
         timer:'',
         timer2:'',
+        timer3:'',
         historyTableData:[],
         myCellIdList:['16','17','18'],
         options:[
@@ -248,8 +249,8 @@
     methods:{
       getEchartsDataByCellId(cellId){
         this.selectCharts = 'e';
-        if(this.timer!=null){
-          clearTimeout(this.timer);
+        if(this.timer2!=null){
+          clearTimeout(this.timer2);
         }
         this.myChartsOption1 = {};
         this.myChartsOption1 = {};
@@ -904,8 +905,8 @@
       },
       getWirelessInfoByCellId(){
         this.selectCharts = 'd';
-        if(this.timer!=null){
-          clearTimeout(this.timer);
+        if(this.timer3!=null){
+          clearTimeout(this.timer3);
         }
         let _this = this;
         axios.get('/api/getWirelessInfoByCellId',{
@@ -918,7 +919,7 @@
           console.log(err);
         });
 
-        _this.timer = setTimeout(function()  {
+        _this.timer3 = setTimeout(function()  {
           if(_this.$route.path.split("bigTalk").length>1){
             _this.getWirelessInfoByCellId()//娃娃消失
           }
