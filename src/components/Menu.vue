@@ -68,7 +68,8 @@
       return {
         nowTime:new Date(),
         myCellIdList:'133636880',
-        myTimes:''
+        myTimes:'',
+        myTimes2:''
       }
     },
     methods: {
@@ -89,15 +90,12 @@
         setTimeout(this.nowTimes,1000);
       },
       getHistoryBySva(){
-        if(this.myTimes!=null){
-          clearTimeout(this.myTimes);
-        }
         let _this = this;
         axios.get('/api/getHistoryBySva').
         then(function(response){
 //          let resultData = response.data;
 //          console.log(resultData);
-          console.log("sva sub record:"+resultData);
+//          console.log("sva sub record:"+resultData);
         }).catch(function(err){
           console.log(err);
         });
@@ -114,6 +112,9 @@
         });
       },
       getData(){
+        if(this.myTimes!=null){
+          clearTimeout(this.myTimes);
+        }
         let _this = this;
         axios.get('/api/getData').
         then(function(response){
@@ -131,9 +132,12 @@
         }, 5000);
       },
       reflushHistory(){
+        if(this.myTimes2!=null){
+          clearTimeout(this.myTimes2);
+        }
         this.getHistoryBySva();
         let _this = this;
-        setTimeout(function()  {
+        _this.myTimes2 = setTimeout(function()  {
           _this.reflushHistory();
         }, 30000);
       }
