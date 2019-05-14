@@ -7,6 +7,7 @@ import View2 from '@/views/View2.vue'
 import warn from '@/views/WarnPain.vue'
 import bigTalk from '@/views/BigTalk.vue'
 import paramConfig from '@/views/ParamConfig.vue'
+import mapConfig from '@/views/MapConfig.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
     {
       path: '/paramConfig',
       component: paramConfig
+    },
+    ,
+    {
+      path: '/mapConfig',
+      component: mapConfig
     }
     //  {
     //   path: '/menu',

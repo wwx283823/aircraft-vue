@@ -510,7 +510,7 @@
           }else if(type==2){
             showValues = result.rsrpDelta;
           }
-          let d = new Date(parseFloat(times)-(1000*60*60*8));    //根据时间戳生成的时间对象
+          let d = new Date(parseFloat(times));    //根据时间戳生成的时间对象
           let date = (d.getFullYear()) + "-" +
             (d.getMonth() + 1) + "-" +
             (d.getDate()) + " " +

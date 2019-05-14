@@ -192,7 +192,10 @@
                   <!--is-horizontal-resize-->
                   <!--:vertical-resize-offset='100'-->
                   <!--:min-height='150'-->
-                  <!--:max-height='600'-->
+                  <!--:max-height='
+
+
+                  0'-->
                   <!--:columns="columns"-->
                   <!--:table-data="historyTableData"-->
                   <!--:column-cell-class-name="columnCellClass2"-->
@@ -207,6 +210,7 @@
 　　</div>
 </template>
 <style >
+
 
   @import '../../static/css/app.css';
 </style>

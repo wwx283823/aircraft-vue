@@ -83,6 +83,7 @@
           ucDLRbRate:45
         },
         cellIdLists:[],
+        restCellIdLists:[],
         nowTime:new Date(),
         myTableData:[],
         columns: [
@@ -204,22 +205,79 @@
         });
 
       },
+      checkMyParam(){
+        let params = this.myParam;
+        if((params.cellInterference==null||params.cellInterference=="")&&(params.ucDLRbRate==null
+          ||params.ucDLRbRate=="")&&(params.ucULRbRate==null||params.ucULRbRate=="")&&
+          (params.userCnt==null||params.userCnt=="")){
+          console.log(false);
+            return false;
+
+        }else{
+          console.log(true);
+          return true;
+
+        }
+      },
       reWirelessInfoByParam(){
-        this.restSvgDocuments();
-        axios.get('/api/reWirelessInfoByParam',{
-          params:
-          this.myParam
-        }).
-        then(response =>{
-          let dataList = response.data;
-          for(let i = 0;i<dataList.length;i++){
-            let model = dataList[i];
-            this.cellIdLists.push(model.ulServiceCellId);
-            this.redSvgDocuments(model.ulServiceCellId);
-          }
-        }).catch(function(err){
-          console.log(err);
-        });
+//        this.restSvgDocuments();
+        let _this = this;
+        if(this.checkMyParam()){
+          axios.get('/api/reWirelessInfoByParam',{
+            params:
+            this.myParam
+          }).
+          then(response =>{
+            let dataList = response.data;
+            _this.restCellIdLists = [];
+            let tempLists = [];
+            Object.assign(tempLists,_this.cellIdLists);
+            for(let i = 0;i<dataList.length;i++){
+              let model = dataList[i];
+              let setRed = false;
+              for(let j = 0;j<tempLists.length;j++){
+                if(model.ulServiceCellId==tempLists[j]){
+                  setRed = true;
+                  if(_this.restCellIdLists.indexOf(j)==-1){
+                    _this.restCellIdLists.push(j);
+                  }
+                }
+              }
+              if(!setRed){
+                _this.cellIdLists.push(model.ulServiceCellId);
+                _this.redSvgDocuments(model.ulServiceCellId);
+              }
+            }
+            if(_this.restCellIdLists.length!=0&&_this.restCellIdLists.length!=tempLists.length){
+              let tempList = [];
+              Object.assign(tempList,_this.cellIdLists);
+              for(let a = 0;a<_this.restCellIdLists.length;a++){
+                tempList.splice(_this.restCellIdLists[a],1);
+              }
+              for(let b = 0;b<tempList.length;b++){
+                let cellIds = tempList[b];
+                let myDocument = document.getElementById("svgId");
+                let seleteDocument = myDocument.getSVGDocument().getElementById(cellIds);
+                if(seleteDocument!=null){
+                  seleteDocument.setAttributeNS(null, "fill", "#6DFDFD");
+                  seleteDocument.setAttributeNS(null, "opacity", "0.5");
+                  for(let c = 0 ;c <_this.cellIdLists.length;c++){
+                    if(_this.cellIdLists[c]==cellIds){
+                      _this.cellIdLists.splice(c,1);
+                    }
+                  }
+                }
+              }
+            }
+            if(dataList.length==0){
+              _this.restSvgDocuments();
+            }
+          }).catch(function(err){
+            console.log(err);
+          });
+        }else{
+          _this.restSvgDocuments();
+        }
       }
     },
     created(){
